@@ -23,6 +23,11 @@ import {
   Building2,
   Workflow,
   Gauge,
+  ShieldCheck,
+  Bell,
+  WifiOff,
+  Wallet,
+  Lock,
 } from "lucide-react";
 
 import profileImg from "./assets/profile.jpg";
@@ -191,6 +196,37 @@ const BUSINESS_PILLARS = [
   },
 ];
 
+/*
+ * Published apps, as opposed to PROJECTS below, which are builds worth
+ * showing. The distinction is whether a stranger can install it.
+ *
+ * `live` flips to true the day the listing goes public: until then the store
+ * URL resolves to a 404, and a dead button on a page Google reads while
+ * reviewing the app is a worse look than an honest "coming soon".
+ */
+const PLAY_URL = "https://play.google.com/store/apps/details?id=com.sharkapps.personify";
+
+const APPS = [
+  {
+    name: "Personify Life",
+    tagline: "Your whole life in one place — on your phone, and nowhere else.",
+    icon: ShieldCheck,
+    live: false,
+    status: "Coming soon to Google Play",
+    platform: "Android",
+    price: "Free",
+    desc: "A personal organiser that holds the things most people scatter across six apps and a drawer: tasks and reminders, events, documents and photos, contacts, notes and a daily journal, bills, budgets and savings. It runs entirely offline. There is no account, no server, and nothing to sign in to — every record is written to a database inside the app's own private storage on the phone.",
+    desc2: "The parts that matter most can be locked into a Vault and encrypted with a password only you hold, using Argon2id and AES-256-GCM. The password is never stored anywhere, which is the point and also the risk: nothing and nobody can recover what is locked without it.",
+    features: [
+      { icon: WifiOff, title: "Works with no connection", desc: "Every feature runs offline. There is no server to be down." },
+      { icon: Lock, title: "Encrypted vault", desc: "Argon2id and AES-256-GCM, with a password that is never stored." },
+      { icon: Bell, title: "Reminders that actually fire", desc: "Exact alarms that ring with the app closed, not when you next open it." },
+      { icon: Wallet, title: "Money, tracked honestly", desc: "Bills, budgets, a ledger, savings goals and forward projections." },
+    ],
+    tags: ["React Native", "Expo SDK 54", "WatermelonDB", "SQLite", "Argon2id", "AES-256-GCM", "Offline-first"],
+  },
+];
+
 const PROJECTS = [
   {
     title: "Navis",
@@ -233,7 +269,7 @@ const PHILOSOPHY = [
   "Solve real-world problems through technology.",
 ];
 
-const NAV = ["About", "Capabilities", "Services", "Projects", "Contact"];
+const NAV = ["About", "Capabilities", "Services", "Apps", "Projects", "Contact"];
 
 /* ------------------------------------------------------------------ */
 /*  Scanning readout — decorative, ties hero to the OSINT/security work */
@@ -548,6 +584,92 @@ export default function Portfolio() {
         </Glass>
       </section>
 
+      {/* ---------------- APPS ---------------- */}
+      <section id="apps" className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-24">
+        <SectionLabel>Apps</SectionLabel>
+        <h2 className="font-display text-2xl sm:text-3xl font-semibold text-white mt-4 max-w-xl">
+          Software anyone can install.
+        </h2>
+        <p className="mt-3 text-slate-300/85 max-w-xl leading-relaxed">
+          Products I ship and maintain myself, rather than build for a client.
+        </p>
+
+        <div className="mt-10 flex flex-col gap-6">
+          {APPS.map((app) => (
+            <Glass key={app.name} className="p-6 sm:p-9">
+              <div className="grid lg:grid-cols-[1fr_0.42fr] gap-8 lg:gap-12">
+                <div>
+                  <div className="flex items-start gap-4">
+                    <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-300/20 to-violet-400/20 border border-white/[0.09]">
+                      <app.icon size={22} className="text-teal-300" />
+                    </span>
+                    <div className="min-w-0">
+                      <h3 className="font-display font-semibold text-white text-xl sm:text-2xl leading-tight">
+                        {app.name}
+                      </h3>
+                      <p className="text-sm text-teal-200/80 mt-1 leading-snug">{app.tagline}</p>
+                    </div>
+                  </div>
+
+                  <p className="mt-6 text-sm text-slate-300/85 leading-relaxed">{app.desc}</p>
+                  <p className="mt-3 text-sm text-slate-300/85 leading-relaxed">{app.desc2}</p>
+
+                  <div className="mt-6 grid sm:grid-cols-2 gap-3">
+                    {app.features.map((f) => (
+                      <div key={f.title} className="neu-card p-4 rounded-xl">
+                        <f.icon size={15} className="text-violet-300" />
+                        <p className="text-sm text-white font-medium mt-2 leading-snug">{f.title}</p>
+                        <p className="text-[12px] text-slate-400 mt-1 leading-relaxed">{f.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-5 flex flex-wrap gap-1.5">
+                    {app.tags.map((t) => (
+                      <span key={t} className="chip chip-mono">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-3 lg:border-l lg:border-white/[0.06] lg:pl-10">
+                  <div className="grid grid-cols-2 lg:grid-cols-1 gap-3">
+                    <FactCard label="Platform" value={app.platform} icon={Smartphone} />
+                    <FactCard label="Price" value={app.price} icon={Sparkles} />
+                    <FactCard label="Your data" value="Stays on your phone" icon={Shield} sub="No account, no server" />
+                  </div>
+
+                  <div className="mt-2 flex flex-col gap-3">
+                    {app.live ? (
+                      <a
+                        href={PLAY_URL}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn-primary px-5 py-3 rounded-xl inline-flex items-center justify-center gap-2 text-sm"
+                      >
+                        Get it on Google Play <ArrowUpRight size={15} />
+                      </a>
+                    ) : (
+                      /* Not a link on purpose — the listing does not exist yet. */
+                      <p className="chip chip-mono !whitespace-normal text-center py-2.5 leading-relaxed">
+                        {app.status}
+                      </p>
+                    )}
+                    <a
+                      href="/privacy"
+                      className="btn-neu px-5 py-3 rounded-xl inline-flex items-center justify-center gap-2 text-sm"
+                    >
+                      <Lock size={15} /> Privacy policy
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </Glass>
+          ))}
+        </div>
+      </section>
+
       {/* ---------------- PROJECTS ---------------- */}
       <section id="projects" className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-24">
         <SectionLabel>Featured projects</SectionLabel>
@@ -654,6 +776,7 @@ export default function Portfolio() {
       <footer className="max-w-6xl mx-auto px-5 sm:px-8 pb-10 pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
         <span>&copy; {new Date().getFullYear()} Evans Opoku</span>
         <div className="flex items-center gap-4">
+          <a href="/privacy" className="hover:text-teal-300 transition-colors">Privacy</a>
           <a href="https://github.com/White7-shark" target="_blank" rel="noreferrer" className="hover:text-teal-300 transition-colors">GitHub</a>
           <a href="https://www.tiktok.com/@mr_tech075" target="_blank" rel="noreferrer" className="hover:text-teal-300 transition-colors">TikTok</a>
           <a href="https://instagram.com/mrtec.h7" target="_blank" rel="noreferrer" className="hover:text-teal-300 transition-colors">Instagram</a>
