@@ -156,6 +156,10 @@ ${body}
   <p class="wrap muted small copyright">© ${YEAR} ${esc(SITE.developer)}. Google Play and the Google Play logo are trademarks of Google LLC.</p>
 </footer>
 <script src="/assets/site.js?v=${BUILD_ID}" defer></script>
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
 `;
