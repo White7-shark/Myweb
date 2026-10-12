@@ -121,6 +121,10 @@ ${appId ? `<meta name="google-play-app" content="app-id=${esc(appId)}">` : ""}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css?v=${BUILD_ID}">
 ${schema.map((s) => `<script type="application/ld+json">${json(s)}</script>`).join("\n")}
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <div class="bg" aria-hidden="true"><div class="blob blob-teal"></div><div class="blob blob-violet"></div></div>
