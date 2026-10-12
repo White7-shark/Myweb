@@ -9,7 +9,7 @@ export const SITE = {
    * every deploy without editing. Set it once you add a custom domain, e.g.
    * "https://evansopoku.dev".
    */
-  url: "",
+  url: "https://aboutevans.vercel.app",
   name: "Evans Opoku Apps",
   developer: "Evans Opoku",
   tagline: "Private, offline-first apps for everyday life",
