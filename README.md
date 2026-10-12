@@ -1,85 +1,80 @@
-# Evans Opoku — Portfolio
+# Evans Opoku Apps
 
-A React + Tailwind portfolio site with a liquid-glass / neumorphic UI.
+The website that advertises my apps. It's hosted on Vercel's free plan, and
+every push to `main` goes live on its own.
+
+It's a **static site with no framework**. A small Node script turns the
+content files into finished HTML pages, so search engines can read every
+word, heading and link straight away. Nothing has to load first.
+
+## Add or update an app
+
+1. Add (or edit) an object in `content/apps.mjs`. Each field is explained
+   at the top of that file.
+2. Put its images in `public/apps/<slug>/`:
+   - `icon-512.png`, `icon-512.webp`, `icon-256.webp` and `icon-192.png`
+   - `og.jpg` at 1200×630, the picture shown when the link is shared
+   - screenshots, if you have them
+3. Commit and push.
+
+The build then creates or updates:
+
+- the app's page at `/apps/<slug>`
+- its card on the home page and on `/apps`
+- its entries in `sitemap.xml`
+- its Google structured data: app, FAQ and breadcrumbs
+
+Developer details (name, phone, social links) are in `site.config.mjs`. The
+About page text, services and projects are in `content/developer.mjs`.
 
 ## Run it locally
 
 ```bash
-npm install
-npm run dev
+npm run dev      # builds, then serves http://localhost:4173
 ```
 
-Then open the local URL shown in your terminal (usually `http://localhost:5173`).
+No `npm install` is needed: the site has no dependencies.
 
-## Build for production
+## Getting found on Google
 
-```bash
-npm run build
-```
+The build already handles these on every page:
 
-The production files land in `dist/`. Deploy that folder to any static
-host — Vercel, Netlify, GitHub Pages, Cloudflare Pages, etc.
+- a unique title and description
+- a canonical URL
+- Open Graph and Twitter share cards
+- `SoftwareApplication`, `FAQPage`, `BreadcrumbList` and `Person`
+  structured data
+- `sitemap.xml` and `robots.txt`
 
-## Project structure
+You need to do these once:
 
-```
-src/
-  App.jsx        — the entire site (sections, data, styles)
-  main.jsx       — React entry point
-  index.css      — Tailwind entry point
-  assets/
-    profile.jpg  — profile photo used in the About section
-public/
-  privacy/
-    index.html   — the Personify Life privacy policy (generated — see below)
-vercel.json      — clean URLs, no trailing slash
-```
+1. Open [Google Search Console](https://search.google.com/search-console)
+   and add the site. Choose the "URL prefix" property with the exact Vercel
+   address.
+2. Verify that you own it. With the "HTML tag" method, paste only the
+   `content` value into `googleSiteVerification` in `site.config.mjs`, then
+   push.
+3. Under Sitemaps, submit `sitemap.xml`.
+4. Under URL inspection, request indexing for `/` and `/apps/personify`.
+5. In Play Console, put the site's address in the store listing's
+   **Website** field. Link to the site from your TikTok and Instagram bios
+   too. Links from other places are what move a new site up the results.
+
+Searching the app's exact name usually brings the site up within days of
+indexing. Ranking for general phrases ("diary app with password") takes
+longer, and gets better as more pages link to the site.
+
+If you add a custom domain later, set `url` in `site.config.mjs`. Until
+then, the build uses Vercel's production domain automatically.
 
 ## The privacy policy at /privacy
 
-`public/privacy/index.html` is a plain static page. Vite copies `public/`
-to the root of `dist/`, so it deploys to:
+`public/privacy/index.html` is generated from the Personify repository and
+copied into the site unchanged. Don't edit it by hand. Regenerate it from
+the Personify repo instead:
 
+```bash
+node scripts/build-policy-page.mjs --theme=site --out=../myweb/public/privacy/index.html
 ```
-https://<your-project>.vercel.app/privacy
-```
 
-That is the URL to paste into the Google Play Console listing.
-
-Three things about it are deliberate:
-
-- **It is static, not a React route.** This site has no router, and a legal
-  page that Google has to read while reviewing the app should not depend on
-  a JavaScript bundle loading first. It renders with scripting off.
-- **`vercel.json` sets `cleanUrls` and no trailing slash**, so `/privacy`
-  serves the file directly. Do **not** add an SPA catch-all rewrite
-  (`/(.*) → /index.html`) unless client-side routing is introduced later —
-  it would swallow this page and serve the homepage instead. `vite preview`
-  does exactly that locally, which is why `/privacy` looks wrong under
-  `npm run preview` but is correct on Vercel and under any plain static
-  server.
-- **It is generated, not hand-written.** The source of truth is
-  `src/constants/policyText.ts` in the Personify app repository, which is
-  also what the app renders under Settings. Regenerate with:
-
-  ```bash
-  # from the Personify repo
-  node scripts/build-policy-page.mjs --theme=site \
-    --out=../myweb/public/privacy/index.html
-  ```
-
-  Editing the HTML by hand means the app and the website start disagreeing
-  about what the app does, which is the one thing a privacy policy must not
-  do.
-
-## Editing content
-
-All copy, skills, services, apps, and projects live as small arrays near
-the top of `src/App.jsx` (`SKILL_GROUPS`, `SERVICES`, `APPS`, `PROJECTS`,
-`PHILOSOPHY`, `BUSINESS_PILLARS`) — update those to change the content
-without touching layout code.
-
-`APPS` holds published products, as opposed to `PROJECTS`, which are builds
-worth showing. When Personify Life goes live on Google Play, set `live: true`
-on its entry: the "Coming soon" label becomes a real store button, pointing
-at `PLAY_URL` just above.
+`/privacy` is the address Google Play has on file for the app, so keep it.
