@@ -237,8 +237,19 @@ function appSchema(app) {
     ...(app.playUrl && app.status === "live" ? { installUrl: app.playUrl, downloadUrl: app.playUrl } : {}),
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: app.status === "live" ? "https://schema.org/InStock" : "https://schema.org/PreOrder" },
     featureList: app.features.map((f) => f.title),
-    ...(app.screenshots.length ? { screenshot: app.screenshots.map((s) => abs(s.src)) } : {}),
+    ...(app.screenshots.length
+      ? { screenshot: [...app.screenshots, ...(app.lucidShots ?? [])].map((s) => ({ "@type": "ImageObject", url: abs(s.src), caption: s.alt })) }
+      : {}),
   };
+}
+
+/** A row of phone screens that scrolls sideways on a phone and wraps on a wide screen. */
+function shotStrip(shots) {
+  return `<div class="shots">${shots
+    .map(
+      (s, i) => `<figure class="shot"><img src="${esc(s.src)}" alt="${esc(s.alt)}" width="270" height="570" ${i < 2 ? "" : 'loading="lazy"'} decoding="async"><figcaption>${esc(s.caption ?? "")}</figcaption></figure>`,
+    )
+    .join("")}</div>`;
 }
 
 /* -------------------------------------------------------------- pages */
@@ -256,11 +267,10 @@ function homePage() {
       <a class="btn btn-ghost btn-lg" href="/apps">All apps</a>
     </div>
   </div>
-  <a class="glass card hero-app" href="/apps/${featured.slug}">
-    <img src="/apps/${featured.slug}/icon-512.webp" width="140" height="140" alt="${esc(featured.name)} app icon" fetchpriority="high">
-    <p class="hero-app-name">${esc(featured.name)}</p>
-    <p class="muted small">${esc(featured.highlights.map((h) => h.title).slice(0, 3).join(" · "))}</p>
-    <span class="chip chip-mono">${esc(STATUS_LABEL[featured.status])}</span>
+  <a class="hero-showcase" href="/apps/${featured.slug}" aria-label="${esc(featured.name)}">
+    ${featured.screenshots[0] ? `<img class="hero-phone back" src="${esc((featured.lucidShots ?? featured.screenshots)[0].src)}" alt="" width="216" height="456">` : ""}
+    ${featured.screenshots[0] ? `<img class="hero-phone front" src="${esc(featured.screenshots[0].src)}" alt="${esc(featured.screenshots[0].alt)}" width="236" height="498" fetchpriority="high">` : ""}
+    <span class="glass hero-badge"><img src="/apps/${featured.slug}/icon-256.webp" width="44" height="44" alt=""><span><strong>${esc(featured.name)}</strong><span class="muted small">${esc(STATUS_LABEL[featured.status])}</span></span></span>
   </a>
 </section>
 
@@ -269,6 +279,14 @@ function homePage() {
   <h2>Software anyone can install</h2>
   <div class="grid grid-2">${APPS.map(appCard).join("")}</div>
 </section>
+
+${featured.lucidShots?.length ? `<section class="wrap section" id="lucid">
+  ${sectionLabel("New in " + featured.shortName)}
+  <h2>Lucid: your wallpaper, your theme</h2>
+  <p class="lead">${esc(featured.name)} can take its whole look from your wallpaper — or a photo or video you choose — in liquid glass.</p>
+  ${shotStrip(featured.lucidShots.slice(0, 4))}
+  <div class="row"><a class="btn btn-ghost" href="/apps/${featured.slug}#lucid">See more of Lucid ${icon("arrow", 16)}</a></div>
+</section>` : ""}
 
 <section class="wrap section" id="why">
   ${sectionLabel("Why these apps")}
@@ -355,7 +373,9 @@ function appPage(app) {
   ${app.intro.map((p) => `<p>${esc(p)}</p>`).join("")}
 </section>
 
-${app.screenshots.length ? `<section class="wrap section">${sectionLabel("Screenshots")}<div class="shots">${app.screenshots.map((s) => `<img src="${esc(s.src)}" alt="${esc(s.alt)}" width="270" height="585" loading="lazy">`).join("")}</div></section>` : ""}
+${app.screenshots.length ? `<section class="wrap section" id="screens">${sectionLabel("A look inside")}<h2>See ${esc(app.shortName)}</h2>${shotStrip(app.screenshots)}</section>` : ""}
+
+${app.lucidShots?.length ? `<section class="wrap section" id="lucid">${sectionLabel("Lucid theme")}<h2>Your wallpaper, your theme</h2><p class="lead">Choose Lucid and the whole app takes its light or dark, colours and accents from your wallpaper — or from a photo or video you pick — with liquid-glass cards laid over it.</p>${shotStrip(app.lucidShots)}</section>` : ""}
 
 <section class="wrap section" id="features">
   ${sectionLabel("Features")}
