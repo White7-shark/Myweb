@@ -31,7 +31,7 @@ export const APPS = [
     playUrl: "https://play.google.com/store/apps/details?id=com.sharkapps.personify",
     privacyUrl: "/privacy",
     version: "1.0.1",
-    updated: "2026-10-10",
+    updated: "2026-10-13",
     languages: ["English", "Español", "Français", "Português", "Deutsch", "العربية", "हिन्दी", "Bahasa Indonesia", "Kiswahili"],
     languageCodes: ["en", "es", "fr", "pt", "de", "ar", "hi", "id", "sw"],
     intro: [
@@ -42,9 +42,22 @@ export const APPS = [
       { icon: "wifi-off", title: "Works with no internet", desc: "Every feature runs offline. Nothing to sign in to, nothing to go down." },
       { icon: "lock", title: "Encrypted Vault", desc: "Argon2id and AES-256-GCM, with a password that is never stored." },
       { icon: "bell", title: "Reminders that ring", desc: "Exact alarms that go off with the app closed." },
+      { icon: "sparkles", title: "Lucid theme", desc: "Takes its colours from your wallpaper, a photo or a video, in liquid glass." },
       { icon: "globe", title: "Nine languages", desc: "English, Spanish, French, Portuguese, German, Arabic, Hindi, Indonesian, Swahili." },
     ],
     features: [
+      {
+        icon: "sparkles",
+        title: "A home screen for your day",
+        desc: "Open the app and see what matters today, with every section one tap away.",
+        points: [
+          "Today's focus: how many tasks are left, with a progress bar",
+          "Counts that need acting on: tasks, events coming up, bills due",
+          "Quick add for a task, event, note, journal entry or expense",
+          "A floating glass navigation bar on every screen, above your phone's own buttons",
+          "Reopens on the screen you left",
+        ],
+      },
       {
         icon: "check",
         title: "Tasks, to-do lists and reminders",
@@ -126,6 +139,18 @@ export const APPS = [
         ],
       },
       {
+        icon: "sparkles",
+        title: "Lucid: a theme made from your wallpaper",
+        desc: "Personify takes on your wallpaper's light or dark, its colours and its accents, with liquid-glass cards laid over it.",
+        points: [
+          "Use your phone's wallpaper, or choose a photo or a short video (up to 7 MB)",
+          "A light wallpaper gives a light app; a dark one, a dark app",
+          "Every accent comes from the picture's own colours",
+          "Text stays readable on any wallpaper, measured against its brightest and darkest parts",
+          "A video background plays silently on a loop and pauses when you leave the app",
+        ],
+      },
+      {
         icon: "shield",
         title: "Privacy, Vault and backup",
         desc: "Your data stays on your phone, and only you hold the key.",
@@ -144,6 +169,7 @@ export const APPS = [
       { title: "An expense tracker and budget planner without an account", desc: "Track spending, bills, budgets and savings without connecting a bank or creating a profile." },
       { title: "A document organiser for IDs and receipts", desc: "Keep passports, certificates and receipts together, with reminders before they expire." },
       { title: "A phone dialer and call blocker for Android", desc: "A dial pad, call screen, call recording, blocking and Do Not Disturb for chosen people." },
+      { title: "A planner that matches your wallpaper", desc: "Lucid re-themes the whole app from your wallpaper, a photo or a video — in liquid glass." },
       { title: "A personal organiser that keeps data on your phone", desc: "One app instead of six, and none of it leaves your device unless you back it up yourself." },
     ],
     faq: [
@@ -154,9 +180,29 @@ export const APPS = [
       { q: "What happens if I forget my encryption password?", a: "It cannot be recovered, and neither can anything still encrypted with it. The password is never stored anywhere — that is what makes the encryption real." },
       { q: "Can I move my data to a new phone?", a: "Yes. Back up to one file in Google Drive, OneDrive, Dropbox or any cloud — by hand or automatically every day or week — and restore it on the new phone." },
       { q: "Can Personify replace my phone app?", a: "Yes. Make it your default phone app for its dial pad, call screen, call recording, blocking, Hush Mode, voicemail and call insights." },
+      { q: "What is the Lucid theme?", a: "A see-through theme: your wallpaper shows behind the app, and Personify takes its light or dark, colours and accents from it, with liquid-glass cards on top. Text is kept readable whatever the wallpaper." },
+      { q: "Can I use my own photo or video as the background?", a: "Yes. In Settings > Appearance, choose Lucid and then a photo or a video of up to 7 MB. The app takes its colours from it, and a video plays silently on a loop." },
       { q: "Which languages does Personify support?", a: "English, Spanish, French, Portuguese, German, Arabic, Hindi, Indonesian and Swahili." },
     ],
     tags: ["To-do list", "Reminders", "Calendar", "Diary", "Journal", "Notes", "Expense tracker", "Budget planner", "Document organiser", "Phone dialer", "Call blocker", "Offline", "Encrypted"],
-    screenshots: [],
+    /** Screen previews, shown on the app page and in its structured data (720×1520 WebP). */
+    screenshots: [
+      { src: "/apps/personify/screens/home-dark.webp", alt: "Personify home screen in the dark theme", caption: "Home — your day at a glance" },
+      { src: "/apps/personify/screens/home-light.webp", alt: "Personify home screen in the light theme", caption: "Home in the light theme" },
+      { src: "/apps/personify/screens/apps-dark.webp", alt: "The Apps screen listing every section", caption: "Apps — every section" },
+      { src: "/apps/personify/screens/tasks-light.webp", alt: "The task list with the navigation bar", caption: "Tasks, with the navigation bar" },
+      { src: "/apps/personify/screens/onboarding-theme.webp", alt: "Choosing a look during setup: light, dark, automatic or Lucid", caption: "Pick your look" },
+    ],
+    /** The Lucid theme on different backgrounds. */
+    lucidShots: [
+      { src: "/apps/personify/screens/lucid-night.webp", alt: "Lucid theme on a night-sky wallpaper, dark blue", caption: "Night sky → deep blue" },
+      { src: "/apps/personify/screens/lucid-beach.webp", alt: "Lucid theme on a beach photo, light", caption: "Beach → light and sandy" },
+      { src: "/apps/personify/screens/lucid-sunset.webp", alt: "Lucid theme on a sunset photo, amber", caption: "Sunset → amber and red" },
+      { src: "/apps/personify/screens/lucid-pastel.webp", alt: "Lucid theme on a pastel gradient, light", caption: "Pastel gradient → light" },
+      { src: "/apps/personify/screens/lucid-purple.webp", alt: "Lucid theme on a purple gradient", caption: "Purple → purple and magenta" },
+      { src: "/apps/personify/screens/lucid-flowers-apps.webp", alt: "Lucid theme on a flower photo, Apps screen", caption: "Flowers → gold and teal" },
+      { src: "/apps/personify/screens/lucid-video.webp", alt: "Lucid theme over a looping video background", caption: "A video background" },
+      { src: "/apps/personify/screens/lucid-settings.webp", alt: "Choosing the Lucid background: phone wallpaper, photo or video", caption: "Choose wallpaper, photo or video" },
+    ],
   },
 ];
