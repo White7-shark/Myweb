@@ -152,7 +152,7 @@ export const DRFILE_DOCS = {
     {
       "title": "Free version and Premium",
       "body": [
-        "Dr. File is free to use with ads and with daily limits on some tools (for example recovery, repair, reading text in pictures, converting files, the Hidden Lab and watermark removal). Premium removes the ads and those limits and adds some tools. What each plan includes is shown in the app (Settings → Dr. File Premium) and may change over time.",
+        "Dr. File is free to use with ads and with daily limits on some tools (for example recovery, repair, reading text in pictures, converting files, Steganography and watermark removal). Premium removes the ads and those limits and adds some tools. What each plan includes is shown in the app (Settings → Dr. File Premium) and may change over time.",
         "Premium is a subscription sold through Google Play, at the price shown in the app before you buy, in your currency. It renews automatically each period until you cancel. Cancel any time in Google Play → Payments & subscriptions; Premium stays until the end of the period you've paid for. Payments, renewals, refunds and any free trials are handled by Google Play under its terms and refund policies.",
         "Points and rewards: points earned in the app (daily check-ins, watching ads) can be swapped for days of Premium. Points can also unlock a single feature for a day (or, for some, for good) and are earned by finishing the day's tasks. They have no cash value, can't be bought, sold or transferred, are kept only on your phone, and are lost if Dr. File's storage is cleared or the app is uninstalled. We may change how points are earned and what they're worth, and may cancel points gained by cheating (for example by changing the phone's clock)."
       ]
@@ -310,7 +310,7 @@ export const DRFILE_DOCS = {
       "items": [
         {
           "q": "What's free and what's Premium?",
-          "a": "Free, with no limits: the file manager, search, the Cleaner, Device Bridge, scanning documents (and saving scans as PDF, Word, pictures or text), the Lucid theme with your wallpaper, playing media and Dr. File AI's chat, search and new documents. Free with a daily allowance: recovering deleted files (3 a day), repairs (1), converting files (3 files — scans don't count), the Hidden Lab (2 messages hidden or revealed), reading and editing the text in photos, screenshots and PDFs (1 a day, after a short ad), watermark removal (2), background removal (3) and editing text in PDFs (1 document). Premium removes ads and every limit, and adds 4K upscaling, compare & sync folders, your own photo or video clip behind Lucid and Dr. File AI changing your existing files. Settings → Dr. File Premium shows the full list."
+          "a": "Free, with no limits: the file manager, search, the Cleaner, Device Bridge, scanning documents (and saving scans as PDF, Word, pictures or text), the Lucid theme with your wallpaper, playing media and Dr. File AI's chat, search and new documents. Free with a daily allowance: recovering deleted files (3 a day), repairs (1), converting files (3 files — scans don't count), Steganography — hiding secret messages or files in another file, and revealing them (2 a day), reading and editing the text in photos, screenshots and PDFs (1 a day, after a short ad), watermark removal (2), background removal (3) and editing text in PDFs (1 document). Premium removes ads and every limit, and adds 4K upscaling, compare & sync folders, your own photo or video clip behind Lucid and Dr. File AI changing your existing files. Settings → Dr. File Premium shows the full list."
         },
         {
           "q": "How much is Premium, and can I pay from my country?",
@@ -334,7 +334,7 @@ export const DRFILE_DOCS = {
         },
         {
           "q": "What are tasks, and how do I unlock a feature with points?",
-          "a": "Tools → Tasks & points shows your points and three tasks for today — things like scanning a document, freeing up space or sending a file with Device Bridge. Each one done adds points; finish all three and you can ask for two more. Points can unlock one feature without limits for a day (from 30 points — for example reading text, converting files or the Hidden Lab), unlock your own photo or clip behind Lucid for good (300 points), or swap for whole days of Premium."
+          "a": "Tools → Tasks & points shows your points and three tasks for today — things like scanning a document, freeing up space or sending a file with Device Bridge. Each one done adds points; finish all three and you can ask for two more. Points can unlock one feature without limits for a day (from 30 points — for example reading text, converting files or Steganography), unlock your own photo or clip behind Lucid for good (300 points), or swap for whole days of Premium."
         },
         {
           "q": "Why are there ads, and can I choose what they use?",
@@ -610,10 +610,93 @@ export const DRFILE_DOCS = {
     }
   ],
   "plans": {
+    "rows": [
+      {
+        "title": "Ads",
+        "free": "A few, kept light",
+        "premium": "None"
+      },
+      {
+        "title": "File manager",
+        "about": "Phone, SD card and USB · search · Recycle Bin",
+        "free": "Included",
+        "premium": "Included"
+      },
+      {
+        "title": "Cleaner & storage insights",
+        "free": "Included",
+        "premium": "Included"
+      },
+      {
+        "title": "Scan documents",
+        "about": "Saved as PDF, Word, text or pictures",
+        "free": "Included",
+        "premium": "Included"
+      },
+      {
+        "title": "Device Bridge",
+        "about": "Send files to a computer or phone over Wi-Fi",
+        "free": "Included",
+        "premium": "Included"
+      },
+      {
+        "title": "Lucid theme",
+        "free": "With your wallpaper",
+        "premium": "Any photo or video clip"
+      },
+      {
+        "title": "Dr. File AI",
+        "free": "Chat, search and new documents",
+        "premium": "Also edits your files"
+      },
+      {
+        "title": "Recover deleted files",
+        "free": "3 files a day",
+        "premium": "Unlimited"
+      },
+      {
+        "title": "Repair damaged files",
+        "free": "1 repair a day",
+        "premium": "Unlimited"
+      },
+      {
+        "title": "Convert files",
+        "free": "3 files a day · scans are free",
+        "premium": "Unlimited"
+      },
+      {
+        "title": "Read & edit text in pictures (OCR)",
+        "free": "1 a day, after a short ad · scanning is free",
+        "premium": "Unlimited, no ads"
+      },
+      {
+        "title": "Steganography",
+        "about": "Hide secret messages or files in another file",
+        "free": "2 a day",
+        "premium": "Unlimited"
+      },
+      {
+        "title": "Edit text in PDFs",
+        "free": "1 document a day",
+        "premium": "Unlimited"
+      },
+      {
+        "title": "Vault",
+        "free": "20 files",
+        "premium": "Unlimited"
+      },
+      {
+        "title": "Upscale videos (up to 4K)",
+        "free": "Downscaling only",
+        "premium": "Upscale to 1080p, 2K and 4K"
+      }
+    ],
+    "more": "And more, including: no limits on removing watermarks and backgrounds, editing photos in batches of any size, as many Smart rules as you like, and comparing & syncing folders. Install the app and see for yourself.",
     "features": [
       {
         "key": "recover",
         "title": "Recover deleted files",
+        "about": null,
         "free": "3 files a day",
         "premium": "Unlimited",
         "pitch": "Get back every photo, video and document you lost — as many as you need, from the phone, a card or a USB drive.",
@@ -624,6 +707,7 @@ export const DRFILE_DOCS = {
       {
         "key": "repair",
         "title": "Repair damaged files",
+        "about": null,
         "free": "1 repair a day",
         "premium": "Unlimited",
         "pitch": "Fix every video, PDF and picture that won't open — not just one a day.",
@@ -634,6 +718,7 @@ export const DRFILE_DOCS = {
       {
         "key": "ocr",
         "title": "Read & edit text in pictures (OCR)",
+        "about": null,
         "free": "1 a day, after a short ad · scanning is free",
         "premium": "Unlimited, no ads",
         "pitch": "Copy and edit the words in photos, screenshots and PDFs — as often as you like, with no ads.",
@@ -644,6 +729,7 @@ export const DRFILE_DOCS = {
       {
         "key": "pdfText",
         "title": "Edit text in PDFs",
+        "about": null,
         "free": "1 document a day",
         "premium": "Unlimited",
         "pitch": "Change the words in any PDF, in its own font, as often as you need.",
@@ -654,6 +740,7 @@ export const DRFILE_DOCS = {
       {
         "key": "convert",
         "title": "Convert files",
+        "about": null,
         "free": "3 files a day · scans are free",
         "premium": "Unlimited",
         "pitch": "Turn as many files as you like into other types — Word to PDF, video to MP3, HEIC to JPG…",
@@ -663,7 +750,8 @@ export const DRFILE_DOCS = {
       },
       {
         "key": "stego",
-        "title": "Hidden Lab (hide & reveal)",
+        "title": "Steganography",
+        "about": "Hide secret messages or files in another file",
         "free": "2 a day",
         "premium": "Unlimited",
         "pitch": "Hide and reveal secret messages and files in photos, PDFs, videos and documents whenever you want.",
@@ -674,6 +762,7 @@ export const DRFILE_DOCS = {
       {
         "key": "unmark",
         "title": "Remove watermarks",
+        "about": null,
         "free": "2 a day",
         "premium": "Unlimited",
         "pitch": "Clean marks and stamps off as many photos as you like.",
@@ -684,6 +773,7 @@ export const DRFILE_DOCS = {
       {
         "key": "background",
         "title": "Remove backgrounds",
+        "about": null,
         "free": "3 a day",
         "premium": "Unlimited",
         "pitch": "Cut out people and products from any number of photos.",
@@ -694,6 +784,7 @@ export const DRFILE_DOCS = {
       {
         "key": "batch",
         "title": "Edit photos in batches",
+        "about": null,
         "free": "5 photos at a time",
         "premium": "Any number",
         "pitch": "Resize, convert or compress hundreds of photos in one go.",
@@ -704,6 +795,7 @@ export const DRFILE_DOCS = {
       {
         "key": "vault",
         "title": "Vault",
+        "about": null,
         "free": "20 files",
         "premium": "Unlimited",
         "pitch": "Keep every private file encrypted in the Vault, with no limit.",
@@ -712,6 +804,7 @@ export const DRFILE_DOCS = {
       {
         "key": "rules",
         "title": "Smart rules",
+        "about": null,
         "free": "2 rules",
         "premium": "Unlimited",
         "pitch": "Let as many rules as you like keep your folders tidy by themselves.",
@@ -720,6 +813,7 @@ export const DRFILE_DOCS = {
       {
         "key": "upscale",
         "title": "Upscale videos (up to 4K)",
+        "about": null,
         "free": "Downscaling only",
         "premium": "Upscale to 1080p, 2K and 4K",
         "pitch": "Make old and small videos sharp and big — up to 4K.",
@@ -730,6 +824,7 @@ export const DRFILE_DOCS = {
       {
         "key": "compare",
         "title": "Compare & sync folders",
+        "about": null,
         "free": "—",
         "premium": "Included",
         "pitch": "See what's different between two folders and make them match in one tap.",
@@ -740,6 +835,7 @@ export const DRFILE_DOCS = {
       {
         "key": "lucidCustom",
         "title": "Your own photo or clip behind Lucid",
+        "about": null,
         "free": "Lucid with your wallpaper",
         "premium": "Any photo or video clip",
         "pitch": "The Lucid theme is free with your wallpaper — put any photo or looping video clip behind the glass instead.",
@@ -751,6 +847,7 @@ export const DRFILE_DOCS = {
       {
         "key": "aiEdit",
         "title": "Dr. File AI changes your files",
+        "about": null,
         "free": "Chat, search and new documents",
         "premium": "Also edits your existing files",
         "pitch": "Ask Dr. File AI to change words, dates and details in your own documents.",
@@ -771,7 +868,7 @@ export const DRFILE_DOCS = {
         "forever": false
       },
       {
-        "title": "Hidden Lab (hide & reveal)",
+        "title": "Steganography",
         "points": 30,
         "forever": false
       },
@@ -856,7 +953,7 @@ export const DRFILE_DOCS = {
         {
           "title": "Scan a document",
           "about": "Any page — a receipt, a letter, a form.",
-          "points": 15
+          "points": 10
         },
         {
           "title": "Free up some space",
@@ -871,7 +968,7 @@ export const DRFILE_DOCS = {
         {
           "title": "Send a file with Device Bridge",
           "about": "To a computer or another phone, over Wi-Fi.",
-          "points": 15
+          "points": 10
         },
         {
           "title": "Check your files' health",

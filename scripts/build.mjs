@@ -516,16 +516,15 @@ function docPage(app, page) {
     const p = d.plans;
     content = `<p class="lead">${esc(app.name)} is free, with a few light ads and a daily allowance on the pro tools. Premium removes the ads and every limit. Points from check-ins, tasks and short ads unlock a feature for a day, or whole days of Premium.</p>
       <section class="glass card doc-section"><h2>Free and Premium</h2><div class="table-wrap"><table class="plans"><thead><tr><th></th><th>Free</th><th>Premium</th></tr></thead><tbody>
-      <tr><th>Ads</th><td>A few, kept light</td><td>None</td></tr>
-      ${p.features.map((f) => `<tr><th>${esc(f.title)}</th><td>${esc(f.free)}</td><td>${esc(f.premium)}</td></tr>`).join("")}
-      </tbody></table></div><p class="muted small">Always free, with no limits: the file manager, search, the Cleaner, Device Bridge, scanning documents and saving scans as other file types, the Lucid theme with your wallpaper, playing media, and Dr. File AI's chat, search and new documents.</p></section>
+      ${p.rows.map((f) => `<tr><th>${esc(f.title)}${f.about ? `<span class="row-about">${esc(f.about)}</span>` : ""}</th><td>${esc(f.free)}</td><td>${esc(f.premium)}</td></tr>`).join("")}
+      </tbody></table></div><p class="plans-more">${esc(p.more)}</p></section>
       <section class="glass card doc-section"><h2>Price</h2><p>About GH₵20 a month in Ghana. Google Play sets the price in your own currency for your country and takes the payment — card, mobile money, carrier billing, Play balance or gift cards, depending on the country. Cancel any time in Google Play → Payments &amp; subscriptions.</p></section>
       <section class="glass card doc-section"><h2>Points</h2><ul class="ticks">
         <li>Daily check-in: ${p.points.checkIn} points, more on days 3, 5 and 7 in a row</li>
-        <li>Today's tasks: ${p.tasks.perDay} a day (two more once they're done), ${Math.min(...p.tasks.list.map((t) => t.points))}–${Math.max(...p.tasks.list.map((t) => t.points))} points each — like ${p.tasks.list.slice(0, 3).map((t) => `“${esc(t.title)}”`).join(", ")}</li>
+        <li>Today's tasks: ${p.tasks.perDay} a day (two more once they're done), up to ${Math.max(...p.tasks.list.map((t) => t.points))} points each — like ${p.tasks.list.slice(0, 3).map((t) => `“${esc(t.title)}”`).join(", ")}</li>
         <li>Short ads you choose to watch: ${p.points.ad} points each, up to ${p.points.adsPerDay} a day</li>
       </ul>
-      <h3>Unlock one feature</h3><ul class="ticks">${p.passes.map((x) => `<li>${esc(x.title)} — ${x.points} points ${x.forever ? "(for good)" : "for a day"}</li>`).join("")}</ul>
+      <h3>Unlock one feature</h3><ul class="ticks">${p.passes.map((x) => `<li>${esc(x.title)}${x.title === "Steganography" ? " (hide secret messages or files in another file)" : ""} — ${x.points} points ${x.forever ? "(for good)" : "for a day"}</li>`).join("")}</ul>
       <h3>Days of Premium</h3><ul class="ticks">${p.points.tiers.map((t) => `<li>${t.days} day${t.days > 1 ? "s" : ""} — ${t.points} points</li>`).join("")}</ul>
       <p class="muted small">Points are kept on your phone, have no cash value and can't be bought or sold.</p></section>`;
     description = `${app.name} free vs Premium: daily allowances, price in your currency, and free Premium days and feature unlocks with points.`;

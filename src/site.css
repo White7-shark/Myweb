@@ -189,3 +189,5 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .plans thead th { color: var(--teal-soft); font-weight: 700; }
 .plans tbody th { color: #fff; font-weight: 600; }
 .plans td { color: #c8d0dd; }
+.plans .row-about { display: block; font-weight: 400; font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+.plans-more { margin: 14px 0 0; padding: 12px 14px; border-radius: 12px; background: rgba(52, 231, 196, 0.07); border: 1px solid rgba(52, 231, 196, 0.2); color: #d2d9e4; }
