@@ -17,6 +17,16 @@ word, heading and link straight away. Nothing has to load first.
    - screenshots, if you have them
 3. Commit and push.
 
+An app can also have its own pages — about, help, free vs Premium, privacy
+policy and terms — at `/apps/<slug>/<page>`: give it a `docs` object.
+Dr. File's comes from `content/drfile-docs.mjs`, which is generated from the
+app's own text. To refresh it, run this in the DrFile repo:
+
+```bash
+TS_NODE_PROJECT=devtests/tsconfig.json TS_NODE_TRANSPILE_ONLY=true \
+  ts-node -r ./devtests/alias.js scripts/web-docs.ts ../myweb/content/drfile-docs.mjs
+```
+
 The build then creates or updates:
 
 - the app's page at `/apps/<slug>`

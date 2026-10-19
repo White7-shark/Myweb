@@ -58,6 +58,11 @@ const ICONS = {
   menu: '<path d="M3 12h18M3 6h18M3 18h18"/>',
   close: '<path d="M18 6L6 18M6 6l12 12"/>',
   sparkles: '<path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/>',
+  wrench: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+  scan: '<path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/>',
+  eye: '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>',
+  send: '<path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/>',
+  file: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>',
   star: '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/>',
 };
 const icon = (name, size = 20) =>
@@ -357,7 +362,8 @@ function appPage(app) {
     <h1>${esc(app.name)}</h1>
     <p class="lead">${esc(app.tagline)}</p>
     <div class="row">${storeButton(app, true)}${app.privacyUrl ? `<a class="btn btn-ghost btn-lg" href="${esc(app.privacyUrl)}">${icon("lock", 16)} Privacy policy</a>` : ""}</div>
-    <p class="muted small">${esc(app.platform)} · ${esc(app.price)} · No ads · No account · Version ${esc(app.version)}</p>
+    <p class="muted small">${esc(app.platform)} · ${esc(app.price)} · ${esc(app.facts ?? "No ads · No account")} · Version ${esc(app.version)}</p>
+    ${app.docs ? docNav(app) : ""}
   </div>
 </section>
 
@@ -375,7 +381,7 @@ function appPage(app) {
 
 ${app.screenshots.length ? `<section class="wrap section" id="screens">${sectionLabel("A look inside")}<h2>See ${esc(app.shortName)}</h2>${shotStrip(app.screenshots)}</section>` : ""}
 
-${app.lucidShots?.length ? `<section class="wrap section" id="lucid">${sectionLabel("Lucid theme")}<h2>Your wallpaper, your theme</h2><p class="lead">Choose Lucid and the whole app takes its light or dark, colours and accents from your wallpaper — or from a photo or video you pick — with liquid-glass cards laid over it.</p>${shotStrip(app.lucidShots)}</section>` : ""}
+${app.lucidShots?.length ? `<section class="wrap section" id="lucid">${sectionLabel("Lucid theme")}<h2>Your wallpaper, your theme</h2><p class="lead">${esc(app.lucidText ?? "Choose Lucid and the whole app takes its light or dark, colours and accents from your wallpaper — or from a photo or video you pick — with liquid-glass cards laid over it.")}</p>${shotStrip(app.lucidShots)}</section>` : ""}
 
 <section class="wrap section" id="features">
   ${sectionLabel("Features")}
@@ -418,7 +424,7 @@ ${app.lucidShots?.length ? `<section class="wrap section" id="lucid">${sectionLa
   <div class="glass card center">
     <img src="/apps/${app.slug}/icon-256.webp" width="88" height="88" alt="" class="app-icon" loading="lazy">
     <h2>Get ${esc(app.name)}</h2>
-    <p class="muted narrow">${esc(app.price)} on ${esc(app.platform)}. No account, no ads — just install and start.</p>
+    <p class="muted narrow">${esc(app.ctaNote ?? `${app.price} on ${app.platform}. No account, no ads — just install and start.`)}</p>
     <div class="row center-row">${storeButton(app, true)}</div>
   </div>
 </section>`;
@@ -439,6 +445,106 @@ ${app.lucidShots?.length ? `<section class="wrap section" id="lucid">${sectionLa
       breadcrumbs([{ name: "Home", path: "/" }, { name: "Apps", path: "/apps" }, { name: app.name, path }]),
       { "@context": "https://schema.org", ...personSchema },
     ],
+  });
+}
+
+/* ------------------------------------------------- an app's own pages */
+
+/*
+ * Apps with `docs` (generated from the app's own text, e.g. content/drfile-docs.mjs) get pages
+ * at /apps/<slug>/<page>: about, help, premium (plans), privacy and terms — the addresses the
+ * Play Console and the app itself link to.
+ */
+const DOC_PAGES = [
+  { page: "about", label: "About" },
+  { page: "help", label: "Help & FAQ" },
+  { page: "premium", label: "Free & Premium" },
+  { page: "privacy", label: "Privacy policy" },
+  { page: "terms", label: "Terms of use" },
+];
+
+function docNav(app, current) {
+  return `<nav class="doc-nav" aria-label="${esc(app.shortName)} pages">${[{ page: "", label: "Overview" }, ...DOC_PAGES]
+    .map((d) => `<a class="chip${d.page === current ? " chip-mono" : ""}" href="/apps/${app.slug}${d.page ? `/${d.page}` : ""}"${d.page === current ? ' aria-current="page"' : ""}>${esc(d.label)}</a>`)
+    .join("")}</nav>`;
+}
+
+/** A paragraph list where lines starting with "• " become a bulleted list. */
+function paragraphs(lines) {
+  const html = [];
+  let list = [];
+  const flush = () => {
+    if (list.length) html.push(`<ul class="ticks">${list.map((l) => `<li>${linkify(l)}</li>`).join("")}</ul>`);
+    list = [];
+  };
+  for (const l of lines) {
+    if (l.startsWith("• ")) list.push(l.slice(2));
+    else {
+      flush();
+      html.push(`<p>${linkify(l)}</p>`);
+    }
+  }
+  flush();
+  return html.join("");
+}
+const linkify = (t) => esc(t).replace(/https?:\/\/[^\s)]+[^\s).,]/g, (u) => `<a href="${u}" rel="noopener" target="_blank">${u}</a>`).replace(/[\w.+-]+@[\w-]+\.[\w.]+/g, (m) => `<a href="mailto:${m}">${m}</a>`);
+
+function docPage(app, page) {
+  const d = app.docs;
+  const path = `/apps/${app.slug}/${page}`;
+  const label = DOC_PAGES.find((p) => p.page === page).label;
+  const sections = (list) => list.map((s) => `<section class="glass card doc-section"><h2>${esc(s.title)}</h2>${paragraphs(s.body)}</section>`).join("");
+  let content = "";
+  let description = "";
+  const schema = [];
+  if (page === "privacy" || page === "terms") {
+    content = `<p class="muted">Effective ${esc(d.effective)} · Questions: <a href="mailto:${esc(d.contact)}">${esc(d.contact)}</a></p>${sections(page === "privacy" ? d.privacy : d.terms)}`;
+    description = page === "privacy" ? `How ${app.name} handles your data: your files stay on your phone, what the free version's ads and Google Play see, and your choices.` : `The terms of use for ${app.name}: your files, acceptable use, the free version and Premium, and our responsibilities.`;
+  } else if (page === "about") {
+    content = `<p class="lead">${esc(d.about.tagline)}</p><section class="glass card doc-section"><p>${esc(d.about.summary)}</p>${app.intro.map((p) => `<p>${esc(p)}</p>`).join("")}</section>
+      <section class="glass card doc-section"><h2>What it does</h2><ul class="ticks">${app.features.map((f) => `<li><strong>${esc(f.title)}</strong> — ${esc(f.desc)}</li>`).join("")}</ul></section>
+      <section class="glass card doc-section"><h2>Made by</h2><p>${esc(app.name)} is made by ${esc(SITE.developer)} in ${esc(SITE.location)}. Package <code>${esc(app.packageId)}</code>, version ${esc(app.version)}, in ${app.languages.length} languages. Contact: <a href="mailto:${esc(d.contact)}">${esc(d.contact)}</a>.</p></section>`;
+    description = `About ${app.name}: ${d.about.summary}`.slice(0, 300);
+  } else if (page === "help") {
+    content = `<p class="lead">Answers to common questions, grouped by feature — the same help as in the app (Settings → Help & FAQ).</p>
+      <div class="chips">${d.faq.map((c) => `<a class="chip" href="#${esc(c.id)}">${esc(c.title)}</a>`).join("")}</div>
+      ${d.faq.map((c) => `<section class="doc-section" id="${esc(c.id)}"><h2>${esc(c.title)}</h2><p class="muted">${esc(c.blurb)}</p><div class="faq">${c.items.map((q) => `<details class="glass"><summary>${esc(q.q)}</summary><p>${linkify(q.a)}</p></details>`).join("")}</div></section>`).join("")}
+      <p class="muted">Still stuck? Email <a href="mailto:${esc(d.contact)}">${esc(d.contact)}</a>.</p>`;
+    description = `${app.name} help: how to recover, repair, scan, convert, clean, hide messages, send files and more.`;
+    schema.push({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: d.faq.flatMap((c) => c.items).map((q) => ({ "@type": "Question", name: q.q, acceptedAnswer: { "@type": "Answer", text: q.a } })) });
+  } else if (page === "premium") {
+    const p = d.plans;
+    content = `<p class="lead">${esc(app.name)} is free, with a few light ads and a daily allowance on the pro tools. Premium removes the ads and every limit. Points from check-ins, tasks and short ads unlock a feature for a day, or whole days of Premium.</p>
+      <section class="glass card doc-section"><h2>Free and Premium</h2><div class="table-wrap"><table class="plans"><thead><tr><th></th><th>Free</th><th>Premium</th></tr></thead><tbody>
+      <tr><th>Ads</th><td>A few, kept light</td><td>None</td></tr>
+      ${p.features.map((f) => `<tr><th>${esc(f.title)}</th><td>${esc(f.free)}</td><td>${esc(f.premium)}</td></tr>`).join("")}
+      </tbody></table></div><p class="muted small">Always free, with no limits: the file manager, search, the Cleaner, Device Bridge, scanning documents and saving scans as other file types, the Lucid theme with your wallpaper, playing media, and Dr. File AI's chat, search and new documents.</p></section>
+      <section class="glass card doc-section"><h2>Price</h2><p>About GH₵20 a month in Ghana. Google Play sets the price in your own currency for your country and takes the payment — card, mobile money, carrier billing, Play balance or gift cards, depending on the country. Cancel any time in Google Play → Payments &amp; subscriptions.</p></section>
+      <section class="glass card doc-section"><h2>Points</h2><ul class="ticks">
+        <li>Daily check-in: ${p.points.checkIn} points, more on days 3, 5 and 7 in a row</li>
+        <li>Today's tasks: ${p.tasks.perDay} a day (two more once they're done), ${Math.min(...p.tasks.list.map((t) => t.points))}–${Math.max(...p.tasks.list.map((t) => t.points))} points each — like ${p.tasks.list.slice(0, 3).map((t) => `“${esc(t.title)}”`).join(", ")}</li>
+        <li>Short ads you choose to watch: ${p.points.ad} points each, up to ${p.points.adsPerDay} a day</li>
+      </ul>
+      <h3>Unlock one feature</h3><ul class="ticks">${p.passes.map((x) => `<li>${esc(x.title)} — ${x.points} points ${x.forever ? "(for good)" : "for a day"}</li>`).join("")}</ul>
+      <h3>Days of Premium</h3><ul class="ticks">${p.points.tiers.map((t) => `<li>${t.days} day${t.days > 1 ? "s" : ""} — ${t.points} points</li>`).join("")}</ul>
+      <p class="muted small">Points are kept on your phone, have no cash value and can't be bought or sold.</p></section>`;
+    description = `${app.name} free vs Premium: daily allowances, price in your currency, and free Premium days and feature unlocks with points.`;
+  }
+  const body = `
+<nav class="wrap crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/apps">Apps</a> / <a href="/apps/${app.slug}">${esc(app.name)}</a> / <span>${esc(label)}</span></nav>
+<section class="wrap section prose doc">
+  <div class="doc-head"><img src="/apps/${app.slug}/icon-256.webp" width="64" height="64" alt="" class="app-icon"><div>${sectionLabel(app.name)}<h1>${esc({ about: `About ${app.name}`, help: `${app.name} help & FAQ`, premium: `${app.name}: Free & Premium`, privacy: `${app.name} privacy policy`, terms: `${app.name} terms of use` }[page])}</h1></div></div>
+  ${docNav(app, page)}
+  ${content}
+</section>`;
+  return layout({
+    path,
+    title: `${app.name} — ${label}`,
+    description,
+    image: `/apps/${app.slug}/og.jpg`,
+    appId: app.packageId,
+    body,
+    schema: [...schema, breadcrumbs([{ name: "Home", path: "/" }, { name: "Apps", path: "/apps" }, { name: app.name, path: `/apps/${app.slug}` }, { name: label, path }])],
   });
 }
 
@@ -503,6 +609,7 @@ write("apps/index.html", appsIndexPage());
 write("about/index.html", aboutPage());
 write("404.html", notFoundPage());
 for (const app of APPS) write(`apps/${app.slug}/index.html`, appPage(app));
+for (const app of APPS.filter((a) => a.docs)) for (const d of DOC_PAGES) write(`apps/${app.slug}/${d.page}/index.html`, docPage(app, d.page));
 
 const urls = [
   { path: "/", priority: "1.0", lastmod: TODAY },
@@ -510,6 +617,7 @@ const urls = [
   ...APPS.map((a) => ({ path: `/apps/${a.slug}`, priority: "0.9", lastmod: a.updated })),
   { path: "/about", priority: "0.6", lastmod: TODAY },
   ...APPS.filter((a) => a.privacyUrl?.startsWith("/")).map((a) => ({ path: a.privacyUrl, priority: "0.4", lastmod: a.updated })),
+  ...APPS.filter((a) => a.docs).flatMap((a) => DOC_PAGES.map((d) => ({ path: `/apps/${a.slug}/${d.page}`, priority: d.page === "help" ? "0.6" : "0.4", lastmod: a.updated }))),
 ];
 const unique = [...new Map(urls.map((u) => [u.path, u])).values()];
 write(
@@ -542,4 +650,4 @@ write(
 if (!existsSync(join(OUT, "privacy", "index.html"))) {
   console.warn("warning: public/privacy/index.html is missing — /privacy will 404");
 }
-console.log(`Built ${4 + APPS.length} pages for ${BASE} into dist/`);
+console.log(`Built ${4 + APPS.length + APPS.filter((a) => a.docs).length * DOC_PAGES.length} pages for ${BASE} into dist/`);
