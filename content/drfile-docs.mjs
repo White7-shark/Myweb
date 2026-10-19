@@ -348,16 +348,16 @@ export const DRFILE_DOCS = {
     },
     {
       "id": "privacy-hide",
-      "title": "Hidden Lab",
+      "title": "Steganography",
       "blurb": "Hide a message or a file inside a photo, PDF, video or document — and reveal one sent to you.",
       "items": [
         {
           "q": "How does hiding a message work?",
-          "a": "Tools → Hidden Lab → Hide a message. Choose a photo (it's hidden invisibly in the picture) or any other file like a PDF, video, song or document (the message rides along inside; the file still opens the same). Type the message or choose a file to hide, add a password to lock it, then share the result."
+          "a": "Tools → Steganography → Hide a message. Choose a photo (it's hidden invisibly in the picture) or any other file like a PDF, video, song or document (the message rides along inside; the file still opens the same). Type the message or choose a file to hide, add a password to lock it, then share the result."
         },
         {
           "q": "Someone sent me a file — how do I get the hidden message?",
-          "a": "Tools → Hidden Lab → Reveal a message (also in Tools as “Reveal a hidden message”). Pick the file exactly as it arrived — saved from the chat as a document, not re-saved as a photo — and tap Reveal. If it was locked, type the password. The message shows on screen (tap Copy), or a hidden file is saved to Download › Dr. File Hidden. You can also open the file in Dr. File and tap “Reveal a hidden message” on its page."
+          "a": "Tools → Steganography → Reveal a message (also in Tools as “Reveal a hidden message”). Pick the file exactly as it arrived — saved from the chat as a document, not re-saved as a photo — and tap Reveal. If it was locked, type the password. The message shows on screen (tap Copy), or a hidden file is saved to Download › Dr. File Hidden. You can also open the file in Dr. File and tap “Reveal a hidden message” on its page."
         },
         {
           "q": "Does the other person need this app to read it?",
@@ -365,11 +365,11 @@ export const DRFILE_DOCS = {
         },
         {
           "q": "Which files can I hide a message in?",
-          "a": "Photos (hidden invisibly in the picture, saved as PNG); PDFs, videos and music (carried after the file's own end — no size limit); Word, Excel and PowerPoint files, ZIPs, APKs and e-books (kept in the file's comment box — up to 64 KB). Hidden Lab's first page shows the list."
+          "a": "Photos (hidden invisibly in the picture, saved as PNG); PDFs, videos and music (carried after the file's own end — no size limit); Word, Excel and PowerPoint files, ZIPs, APKs and e-books (kept in the file's comment box — up to 64 KB). Steganography's first page shows the list."
         },
         {
           "q": "How do I know if a file has something hidden in it?",
-          "a": "Open it in Hidden Lab → Reveal a message. As soon as you choose it, Dr. File checks and says “Something is hidden in this file” when it finds one. A locked message may only show after you type the password."
+          "a": "Open it in Steganography → Reveal a message. As soon as you choose it, Dr. File checks and says “Something is hidden in this file” when it finds one. A locked message may only show after you type the password."
         },
         {
           "q": "Why did my hidden message disappear?",
@@ -671,7 +671,7 @@ export const DRFILE_DOCS = {
       },
       {
         "title": "Steganography",
-        "about": "Hide secret messages or files in another file",
+        "about": "Hide messages or files in another file, or reveal secret files or messages",
         "free": "2 a day",
         "premium": "Unlimited"
       },
@@ -751,7 +751,7 @@ export const DRFILE_DOCS = {
       {
         "key": "stego",
         "title": "Steganography",
-        "about": "Hide secret messages or files in another file",
+        "about": "Hide messages or files in another file, or reveal secret files or messages",
         "free": "2 a day",
         "premium": "Unlimited",
         "pitch": "Hide and reveal secret messages and files in photos, PDFs, videos and documents whenever you want.",
