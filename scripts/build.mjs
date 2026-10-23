@@ -11,6 +11,7 @@
  * manifest are written from the same list, so a new app is in all of them
  * the moment it is added.
  */
+import { execFileSync } from "node:child_process";
 import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -30,6 +31,24 @@ const BASE = (
 
 const YEAR = new Date().getFullYear();
 const TODAY = new Date().toISOString().slice(0, 10);
+/**
+ * When a page's own sources last changed, from git — the date Google should
+ * see in the sitemap. A sitemap that says "changed today" for every page on
+ * every deploy is one Google learns to ignore, so this only moves when the
+ * words or pictures on that page actually do. Falls back to `fallback` (or
+ * today) where there is no git history, such as a copied folder.
+ */
+function lastChanged(paths, fallback = TODAY) {
+  try {
+    const out = execFileSync("git", ["log", "-1", "--format=%cs", "--", ...paths], { cwd: ROOT, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim();
+    if (/^\d{4}-\d{2}-\d{2}$/.test(out)) return fallback && fallback > out && fallback !== TODAY ? fallback : out;
+  } catch {
+    // No git here.
+  }
+  return fallback;
+}
+const latest = (...dates) => dates.filter(Boolean).sort().at(-1);
+
 /** Busts the browser cache for the stylesheet and script on every deploy. */
 const BUILD_ID = Date.now().toString(36);
 
@@ -149,6 +168,7 @@ ${body}
     <div>
       <p class="footer-title">More</p>
       <a href="/about">About the developer</a>
+      <a href="/sitemap">Site map</a>
       ${APPS.filter((a) => a.privacyUrl).map((a) => `<a href="${esc(a.privacyUrl)}">${esc(a.shortName)} privacy policy</a>`).join("")}
       ${SITE.socials.map((s) => `<a href="${esc(s.url)}" rel="noopener me" target="_blank">${esc(s.label)}</a>`).join("")}
     </div>
@@ -481,6 +501,40 @@ function notFoundPage() {
   }).replace('<meta name="robots" content="index, follow, max-image-preview:large">', '<meta name="robots" content="noindex">');
 }
 
+/** A plain list of every page, for people — and one more set of links for crawlers. */
+function sitemapPage() {
+  const group = (title, items) => `<div class="glass card">
+    <h2>${esc(title)}</h2>
+    <ul class="sitemap-list">${items
+      .map((i) => `<li><a href="${esc(i.href)}">${esc(i.label)}</a>${i.desc ? `<span class="muted small">${esc(i.desc)}</span>` : ""}</li>`)
+      .join("")}</ul>
+  </div>`;
+  const body = `
+<section class="wrap section page-head">
+  ${sectionLabel("Site map")}
+  <h1>Every page on ${esc(SITE.name)}</h1>
+  <p class="lead">The apps, the developer behind them, and the policies.</p>
+</section>
+<section class="wrap section">
+  <div class="grid grid-2">
+  ${group("Main pages", [
+    { href: "/", label: "Home", desc: SITE.tagline },
+    { href: "/apps", label: "All apps", desc: `Every app by ${SITE.developer}` },
+    { href: "/about", label: "About the developer", desc: `${SITE.developer}, ${SITE.location}` },
+  ])}
+  ${group("Apps", APPS.map((a) => ({ href: `/apps/${a.slug}`, label: a.name, desc: a.tagline })))}
+  ${group("Policies", APPS.filter((a) => a.privacyUrl?.startsWith("/")).map((a) => ({ href: a.privacyUrl, label: `${a.name} privacy policy` })))}
+  </div>
+</section>`;
+  return layout({
+    path: "/sitemap",
+    title: `Site map — ${SITE.name}`,
+    description: `Every page on ${SITE.name}: the apps by ${SITE.developer}, the developer, and the privacy policy.`,
+    body,
+    schema: [breadcrumbs([{ name: "Home", path: "/" }, { name: "Site map", path: "/sitemap" }])],
+  });
+}
+
 /* -------------------------------------------------------------- write */
 
 function write(rel, content) {
@@ -498,21 +552,40 @@ write("index.html", homePage());
 write("apps/index.html", appsIndexPage());
 write("about/index.html", aboutPage());
 write("404.html", notFoundPage());
+write("sitemap/index.html", sitemapPage());
 for (const app of APPS) write(`apps/${app.slug}/index.html`, appPage(app));
 
+/*
+ * sitemap.xml: every page, when it really last changed, and the pictures on
+ * it (Google Images finds the icon and the screenshots through these). The
+ * home page and the apps index change whenever any app does.
+ */
+const APP_SOURCES = ["content/apps.mjs", "scripts/build.mjs"];
+const appDate = (a) => latest(a.updated, lastChanged([...APP_SOURCES, `public/apps/${a.slug}`], a.updated));
+const img = (loc, title) => ({ loc, title });
+const appImages = (a) => [
+  img(`/apps/${a.slug}/icon-512.png`, `${a.name} app icon`),
+  img(`/apps/${a.slug}/og.jpg`, a.name),
+  ...[...(a.screenshots ?? []), ...(a.lucidShots ?? [])].map((sh) => img(sh.src, sh.alt)),
+];
+const siteDate = lastChanged(["site.config.mjs", "src", "scripts/build.mjs"]);
 const urls = [
-  { path: "/", priority: "1.0", lastmod: TODAY },
-  { path: "/apps", priority: "0.9", lastmod: TODAY },
-  ...APPS.map((a) => ({ path: `/apps/${a.slug}`, priority: "0.9", lastmod: a.updated })),
-  { path: "/about", priority: "0.6", lastmod: TODAY },
-  ...APPS.filter((a) => a.privacyUrl?.startsWith("/")).map((a) => ({ path: a.privacyUrl, priority: "0.4", lastmod: a.updated })),
+  { path: "/", priority: "1.0", lastmod: latest(siteDate, ...APPS.map(appDate), lastChanged(["content/developer.mjs"])),
+    images: [...APPS.flatMap((a) => [img(`/apps/${a.slug}/icon-512.png`, `${a.name} app icon`), ...(a.screenshots ?? []).slice(0, 1).map((sh) => img(sh.src, sh.alt))]), img("/assets/profile.jpg", SITE.developer)] },
+  { path: "/apps", priority: "0.9", lastmod: latest(siteDate, ...APPS.map(appDate)), images: APPS.map((a) => img(`/apps/${a.slug}/icon-512.png`, `${a.name} app icon`)) },
+  ...APPS.map((a) => ({ path: `/apps/${a.slug}`, priority: "0.9", lastmod: latest(siteDate, appDate(a)), images: appImages(a) })),
+  { path: "/about", priority: "0.6", lastmod: latest(siteDate, lastChanged(["content/developer.mjs", "public/assets/profile.jpg"])), images: [img("/assets/profile.jpg", `Portrait of ${SITE.developer}`)] },
+  ...APPS.filter((a) => a.privacyUrl?.startsWith("/")).map((a) => ({ path: a.privacyUrl, priority: "0.4", lastmod: lastChanged([`public${a.privacyUrl}`], a.updated), images: [] })),
+  { path: "/sitemap", priority: "0.3", lastmod: latest(siteDate, ...APPS.map(appDate)), images: [] },
 ];
 const unique = [...new Map(urls.map((u) => [u.path, u])).values()];
+const imageXml = (images) =>
+  images.map((i) => `\n    <image:image><image:loc>${esc(abs(i.loc))}</image:loc><image:title>${esc(i.title)}</image:title></image:image>`).join("");
 write(
   "sitemap.xml",
   `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${unique.map((u) => `  <url><loc>${esc(abs(u.path))}</loc><lastmod>${u.lastmod}</lastmod><priority>${u.priority}</priority></url>`).join("\n")}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+${unique.map((u) => `  <url>\n    <loc>${esc(abs(u.path))}</loc>\n    <lastmod>${u.lastmod}</lastmod>\n    <priority>${u.priority}</priority>${imageXml(u.images)}\n  </url>`).join("\n")}
 </urlset>
 `,
 );
@@ -538,4 +611,4 @@ write(
 if (!existsSync(join(OUT, "privacy", "index.html"))) {
   console.warn("warning: public/privacy/index.html is missing — /privacy will 404");
 }
-console.log(`Built ${4 + APPS.length} pages for ${BASE} into dist/`);
+console.log(`Built ${5 + APPS.length} pages for ${BASE} into dist/`);

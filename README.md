@@ -44,7 +44,10 @@ The build already handles these on every page:
 - Open Graph and Twitter share cards
 - `SoftwareApplication`, `FAQPage`, `BreadcrumbList` and `Person`
   structured data
-- `sitemap.xml` and `robots.txt`
+- `sitemap.xml` (every page, the date it really last changed, taken from
+  git, and the images on it: icons, share pictures and screenshots, so
+  Google Images can find them too) and `robots.txt`, which points to it
+- a human-readable site map at `/sitemap`, linked from every page's footer
 
 You need to do these once:
 
@@ -54,7 +57,8 @@ You need to do these once:
 2. Verify that you own it. With the "HTML tag" method, paste only the
    `content` value into `googleSiteVerification` in `site.config.mjs`, then
    push.
-3. Under Sitemaps, submit `sitemap.xml`.
+3. Under Sitemaps, enter `sitemap.xml` and press Submit. The status should
+   read "Success" with 6 pages discovered (it can take a day).
 4. Under URL inspection, request indexing for `/` and `/apps/personify`.
 5. In Play Console, put the site's address in the store listing's
    **Website** field. Link to the site from your TikTok and Instagram bios
