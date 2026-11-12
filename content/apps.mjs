@@ -13,6 +13,8 @@
  * icon-256.webp, icon-192.png and og.jpg (1200×630, the picture shown when
  * the link is shared). Screenshots, if any, are listed in `screenshots`.
  */
+import { DRFILE_DOCS } from "./drfile-docs.mjs";
+
 export const APPS = [
   {
     slug: "personify",
@@ -203,6 +205,99 @@ export const APPS = [
       { src: "/apps/personify/screens/lucid-flowers-apps.webp", alt: "Lucid theme on a flower photo, Apps screen", caption: "Flowers → gold and teal" },
       { src: "/apps/personify/screens/lucid-video.webp", alt: "Lucid theme over a looping video background", caption: "A video background" },
       { src: "/apps/personify/screens/lucid-settings.webp", alt: "Choosing the Lucid background: phone wallpaper, photo or video", caption: "Choose wallpaper, photo or video" },
+    ],
+  },
+  {
+    slug: "drfile",
+    name: "Dr. File",
+    shortName: "Dr. File",
+    tagline: "Your phone's file doctor — find, open, fix, convert, clean, protect and send every file on your phone. All on the phone; nothing uploaded.",
+    metaTitle: "file manager, recovery, PDF & document scanner app for Android",
+    metaDescription:
+      "Dr. File is an Android file manager that recovers deleted files, repairs broken ones, scans documents, edits PDFs, converts files, frees space and hides secret messages — on your phone.",
+    status: "soon", // in closed testing on Google Play
+    platform: "Android",
+    price: "Free, with optional Premium",
+    /** Shown under the store button (the default says "No ads · No account"). */
+    facts: "No account · Files never uploaded · Free with a few ads, Premium has none",
+    ctaNote: "Free on Android, with a few light ads — or Premium for none and no daily limits. No account, and your files never leave your phone.",
+    lucidText: "Choose Lucid and the whole app takes its light or dark, colours and accents from your phone's wallpaper, with liquid-glass cards over it — free for everyone. Premium (or points) lets you put your own photo or looping video clip behind the glass.",
+    category: "UtilitiesApplication",
+    packageId: "com.sharkapps.drfile",
+    playUrl: "https://play.google.com/store/apps/details?id=com.sharkapps.drfile",
+    privacyUrl: "/apps/drfile/privacy",
+    version: "0.1.0",
+    updated: "2026-10-19",
+    languages: ["English", "中文", "हिन्दी", "Español", "Français", "العربية", "বাংলা", "Português", "Русский"],
+    languageCodes: ["en", "zh", "hi", "es", "fr", "ar", "bn", "pt", "ru"],
+    intro: [
+      "Dr. File is one app for everything to do with the files on your phone. Browse every folder, SD card and USB drive; find a file by what it says, not just its name; free up space; and send files to a computer or another phone over Wi-Fi, with no cable and no internet.",
+      "When something goes wrong it's the doctor: it gets back deleted photos, videos and documents, repairs videos, PDFs and pictures that won't open, and finds the files on your phone that are broken. Its labs edit PDFs (even the text of scanned pages, in their own font), photos, video and sound, and its scanner turns paper into clean PDFs and editable Word documents.",
+      "Everything happens on the phone itself. There's no account, and your files, their contents and what Dr. File reads in them are never uploaded. Dr. File AI runs on the phone too.",
+    ],
+    highlights: [
+      { icon: "folder", title: "Every file, one place", desc: "Phone, SD card and USB drive — copy, move, zip, share, and a 30-day Recycle Bin." },
+      { icon: "wrench", title: "Recovers and repairs", desc: "Deleted files back; broken videos, PDFs and photos fixed." },
+      { icon: "scan", title: "Scans documents", desc: "Straightened, cleaned, saved as PDF, Word or text — free." },
+      { icon: "shield", title: "Private by design", desc: "No account, nothing uploaded. Vault, file locking and app lock." },
+      { icon: "globe", title: "Nine languages", desc: "English, Chinese, Hindi, Spanish, French, Arabic, Bengali, Portuguese and Russian." },
+    ],
+    features: [
+      { icon: "folder", title: "File manager", desc: "A full file manager that can be your phone's default.", points: ["Every folder on the phone, SD card and USB drive", "Copy, move, rename, zip and share — checked with checksums, with undo", "Smart Inbox for new downloads, Smart rules that keep folders tidy", "Archives: look inside zip, 7z and tar, take out just what you need", "Recycle Bin: deleted files wait 30 days"] },
+      { icon: "sparkles", title: "Cleaner and storage insights", desc: "See what takes your space and why, then clear it safely.", points: ["App caches, leftovers, old downloads, big files and duplicates", "A storage map, biggest folders first", "Storage intelligence: growth over time, explained", "You choose what goes; nothing is deleted on its own"] },
+      { icon: "wrench", title: "Recovery Lab and repairs", desc: "For the files you thought were gone, or that won't open.", points: ["Recover deleted photos, videos and documents from the phone, a card or a USB drive", "Repair videos, PDFs and photos that won't open or are cut short", "File health: finds empty, cut-short and wrongly named files", "Honest about what can come back, with a confidence for each file"] },
+      { icon: "scan", title: "Document scanner and reading text", desc: "Paper to clean digital files, and the words out of any picture.", points: ["Pages found, straightened and cleaned automatically", "Save as PDF, searchable PDF, Word, text, JPG, PNG or TIFF — free", "Read the text in photos, screenshots and PDFs (OCR), in many languages", "Documents filed by what they say: invoices, receipts, letters"] },
+      { icon: "book", title: "PDF Lab", desc: "Do almost anything with a PDF.", points: ["Edit the text of a PDF — even scanned pages — in its own font", "Sign, fill in forms, merge, split, reorder pages", "Add or remove passwords", "Turn web pages and documents into PDF"] },
+      { icon: "star", title: "Image, Video and Audio Labs", desc: "Pro tools for photos, video and sound.", points: ["Photos: crop, resize, compress, 19 looks, remove backgrounds and watermarks", "Video: trim, merge, compress, subtitles, upscale to 4K", "Audio: trim, merge, convert, song details, see the wave", "A media player with playlists, gestures and subtitle sync"] },
+      { icon: "eye", title: "Steganography", desc: "Hide messages or files in another file, or reveal secret files or messages.", points: ["Hide a message or a whole file in a photo, PDF, video, song or document", "It still looks and opens the same in every other app", "Lock it with a password", "Reveal what someone hid for you — only Dr. File can read it"] },
+      { icon: "send", title: "Device Bridge", desc: "Send files between devices over Wi-Fi — no internet, no cable.", points: ["To another phone with Dr. File, or any computer, iPhone or iPad with a browser", "Pair by scanning a QR code", "Every file checked on arrival", "Send your installed apps as .apk files"] },
+      { icon: "sparkles", title: "Dr. File AI", desc: "Ask about your files in your own words — on the phone.", points: ["“Find the PDF about my rent”, “why won't this video play?”", "Explains, finds, converts and creates documents", "Premium: edits words, dates and details in your own files", "Runs on your phone; nothing is sent to a server"] },
+      { icon: "lock", title: "Privacy and security", desc: "Keep private files private.", points: ["Vault: files encrypted behind your PIN or fingerprint", "Lock any file with a password (AES-256)", "App lock: PIN or fingerprint before Dr. File opens", "Remove location and camera details from photos before sharing"] },
+      { icon: "wallet", title: "Free, with optional Premium", desc: "Free with a few light ads and daily allowances on the pro tools.", points: ["Premium: no ads, no daily limits, 4K upscaling, folder sync, AI file editing", "About GH₵20 a month, priced in your own currency by Google Play", "Daily check-ins, tasks and short ads earn points", "Points unlock a single feature for a day, or whole days of Premium"] },
+    ],
+    uses: [
+      { title: "File manager for Android", desc: "Browse, copy, move, zip and share every file on the phone, SD card and USB drive — it can be your default file manager." },
+      { title: "Recover deleted photos", desc: "Scan the phone, a memory card or a USB drive for deleted photos, videos and documents and get them back." },
+      { title: "Fix a video that won't play", desc: "Repair videos, PDFs and pictures that won't open or were cut short." },
+      { title: "Document scanner", desc: "Scan receipts, letters and forms with the camera into PDF or editable Word — free." },
+      { title: "Edit PDF text", desc: "Change the words in a PDF, even a scanned one, in the document's own font." },
+      { title: "Free up storage", desc: "Clear caches, leftovers, duplicates and big files you no longer need, and see what's growing." },
+      { title: "Send files to a PC without a cable", desc: "Device Bridge sends files to a computer or another phone over Wi-Fi, no internet needed." },
+      { title: "Hide a secret message in a photo", desc: "Hide a message or file inside a photo, PDF or video and send it — only Dr. File can reveal it." },
+      { title: "Convert files", desc: "Word to PDF, video to MP3, HEIC to JPG and many more, on the phone." },
+    ],
+    faq: [
+      { q: "Is Dr. File free?", a: "Yes. It's free with a few light ads, and some pro tools have a daily allowance on the free plan (for example 3 recovered files, 3 conversions and 2 steganography messages a day). Premium removes the ads and the limits. Scanning documents and saving scans as other file types is always free." },
+      { q: "Are my files uploaded anywhere?", a: "No. Dr. File works on the phone itself. Your files, their contents and what Dr. File reads in them are never uploaded. There's no account." },
+      { q: "Can Dr. File recover deleted photos?", a: "Often, yes — from the phone's own leftovers, a memory card or a USB drive. How much comes back depends on whether the space has been used again; Dr. File shows a confidence for each file before you recover it." },
+      { q: "What is steganography in Dr. File?", a: "Hiding a secret message or a whole file inside another file — a photo, PDF, video, song or document — which still opens normally. The person you send it to reveals it in their own Dr. File, with a password if you set one. Free users can hide or reveal 2 a day; Premium has no limit." },
+      { q: "How do I get Premium for free?", a: "Check in daily, finish the day's tasks (like scanning a document or sending a file with Device Bridge) and watch a few short ads for points. Points unlock one feature for a day, or whole days of Premium." },
+      { q: "Which languages does Dr. File support?", a: "English, Chinese, Hindi, Spanish, French, Arabic, Bengali, Portuguese and Russian." },
+      { q: "When is Dr. File on Google Play?", a: "It's in testing on Google Play now and will be published soon. This page will have the download button when it's out." },
+    ],
+    tags: ["File manager", "File recovery", "Photo recovery", "Video repair", "Document scanner", "PDF editor", "OCR", "File converter", "Storage cleaner", "File transfer", "Steganography", "Vault", "Offline AI"],
+    /** Pages from the app's own text (content/drfile-docs.mjs), at /apps/drfile/<page>. */
+    docs: DRFILE_DOCS,
+    screenshots: [
+      { src: "/apps/drfile/screens/home-light.webp", alt: "Dr. File home screen: phone storage, Ask Dr. File and quick tools", caption: "Home — storage and quick tools" },
+      { src: "/apps/drfile/screens/home-dark.webp", alt: "Dr. File home screen in the dark theme", caption: "Home in the dark theme" },
+      { src: "/apps/drfile/screens/files-dark.webp", alt: "The file manager with two files selected", caption: "File manager" },
+      { src: "/apps/drfile/screens/cleaner-light.webp", alt: "The Cleaner showing what can be cleared", caption: "Cleaner" },
+      { src: "/apps/drfile/screens/scan-camera.webp", alt: "Scanning an invoice: the page is found and outlined", caption: "Scan documents" },
+      { src: "/apps/drfile/screens/scan-save.webp", alt: "Saving a scan as PDF, Word, text or pictures", caption: "Save scans as any type — free" },
+      { src: "/apps/drfile/screens/hidden-lab.webp", alt: "Steganography: hide a secret message or file in another file, or reveal one", caption: "Steganography — hide a message in a file" },
+      { src: "/apps/drfile/screens/hidden-reveal.webp", alt: "A hidden message revealed from a video", caption: "A hidden message, revealed" },
+      { src: "/apps/drfile/screens/bridge-send.webp", alt: "Device Bridge sending files by QR code", caption: "Device Bridge" },
+      { src: "/apps/drfile/screens/premium.webp", alt: "Dr. File Premium plans and the free vs Premium table", caption: "Premium" },
+      { src: "/apps/drfile/screens/rewards.webp", alt: "Rewards: points, check-in streak and free Premium days", caption: "Rewards" },
+      { src: "/apps/drfile/screens/tasks.webp", alt: "Tasks and points: today's tasks and features to unlock for a day", caption: "Tasks & points" },
+      { src: "/apps/drfile/screens/paywall.webp", alt: "Reading text: one a day with a short ad, Premium, or unlock with points", caption: "Free, with choices" },
+    ],
+    lucidShots: [
+      { src: "/apps/drfile/screens/lucid-beach.webp", alt: "Lucid theme on a beach wallpaper, light", caption: "Beach → light and sandy" },
+      { src: "/apps/drfile/screens/lucid-night.webp", alt: "Lucid theme on a night-sky wallpaper, dark", caption: "Night sky → deep blue" },
+      { src: "/apps/drfile/screens/lucid-tools.webp", alt: "The Tools screen in Lucid over a forest", caption: "Tools over a forest" },
+      { src: "/apps/drfile/screens/lucid-lock.webp", alt: "App lock in the Lucid theme", caption: "App lock" },
     ],
   },
 ];

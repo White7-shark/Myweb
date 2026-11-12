@@ -175,6 +175,23 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 
+/* An app's own pages (/apps/<slug>/privacy, terms, about, help, premium). */
+.doc-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 22px; }
+.doc-nav .chip, .doc .chips .chip { text-decoration: none; }
+.doc-head { display: flex; gap: 16px; align-items: center; }
+.doc-head h1 { margin: 0; }
+.doc-section { margin: 16px 0; }
+.doc-section h2 { margin-top: 0; font-size: 1.3rem; }
+.doc-section h3 { margin: 1.2em 0 0.3em; font-size: 1.05rem; }
+.table-wrap { overflow-x: auto; }
+.plans { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.plans th, .plans td { padding: 10px 8px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.plans thead th { color: var(--teal-soft); font-weight: 700; }
+.plans tbody th { color: #fff; font-weight: 600; }
+.plans td { color: #c8d0dd; }
+.plans .row-about { display: block; font-weight: 400; font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+.plans-more { margin: 14px 0 0; padding: 12px 14px; border-radius: 12px; background: rgba(52, 231, 196, 0.07); border: 1px solid rgba(52, 231, 196, 0.2); color: #d2d9e4; }
+
 /* Site map page */
 .sitemap-list { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 12px; }
 .sitemap-list li { display: grid; gap: 2px; }
