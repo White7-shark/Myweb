@@ -399,6 +399,19 @@ function appPage(app) {
   ${app.intro.map((p) => `<p>${esc(p)}</p>`).join("")}
 </section>
 
+${app.whatsNew ? `<section class="wrap section" id="whats-new">
+  ${sectionLabel("What's new")}
+  <h2>New in version ${esc(app.whatsNew.version)}</h2>
+  <p class="lead">${esc(app.whatsNew.summary)}</p>
+  <div class="grid grid-2">
+    ${app.whatsNew.items.map((n) => `<article class="glass card tight">
+      <span class="chip chip-mono new-kind">${esc(n.kind)}</span>
+      <h3>${esc(n.title)}</h3>
+      <p class="muted small">${esc(n.desc)}</p>
+    </article>`).join("")}
+  </div>
+</section>` : ""}
+
 ${app.screenshots.length ? `<section class="wrap section" id="screens">${sectionLabel("A look inside")}<h2>See ${esc(app.shortName)}</h2>${shotStrip(app.screenshots)}</section>` : ""}
 
 ${app.lucidShots?.length ? `<section class="wrap section" id="lucid">${sectionLabel("Lucid theme")}<h2>Your wallpaper, your theme</h2><p class="lead">${esc(app.lucidText ?? "Choose Lucid and the whole app takes its light or dark, colours and accents from your wallpaper — or from a photo or video you pick — with liquid-glass cards laid over it.")}</p>${shotStrip(app.lucidShots)}</section>` : ""}

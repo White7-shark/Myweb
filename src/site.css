@@ -196,3 +196,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .sitemap-list { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 12px; }
 .sitemap-list li { display: grid; gap: 2px; }
 .sitemap-list a { font-weight: 600; }
+
+/* What's new on an app page */
+#whats-new .new-kind { display: inline-block; margin-bottom: 8px; font-size: 0.72rem; }
+#whats-new h3 { margin: 0 0 4px; }
