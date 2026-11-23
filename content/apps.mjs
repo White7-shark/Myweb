@@ -215,7 +215,7 @@ export const APPS = [
     metaTitle: "file manager, recovery, PDF & document scanner app for Android",
     metaDescription:
       "Dr. File is an Android file manager that recovers deleted files, repairs broken ones, scans documents, edits PDFs, converts files, frees space and hides secret messages — on your phone.",
-    status: "soon", // in closed testing on Google Play
+    status: "soon", // in Google Play's production review; set "live" once it's published
     platform: "Android",
     price: "Free, with optional Premium",
     /** Shown under the store button (the default says "No ads · No account"). */
@@ -226,8 +226,8 @@ export const APPS = [
     packageId: "com.sharkapps.drfile",
     playUrl: "https://play.google.com/store/apps/details?id=com.sharkapps.drfile",
     privacyUrl: "/apps/drfile/privacy",
-    version: "0.1.0",
-    updated: "2026-10-19",
+    version: "1.0.0",
+    updated: "2026-11-23",
     languages: ["English", "中文", "हिन्दी", "Español", "Français", "العربية", "বাংলা", "Português", "Русский"],
     languageCodes: ["en", "zh", "hi", "es", "fr", "ar", "bn", "pt", "ru"],
     intro: [
@@ -248,12 +248,12 @@ export const APPS = [
       { icon: "wrench", title: "Recovery Lab and repairs", desc: "For the files you thought were gone, or that won't open.", points: ["Recover deleted photos, videos and documents from the phone, a card or a USB drive", "Repair videos, PDFs and photos that won't open or are cut short", "File health: finds empty, cut-short and wrongly named files", "Honest about what can come back, with a confidence for each file"] },
       { icon: "scan", title: "Document scanner and reading text", desc: "Paper to clean digital files, and the words out of any picture.", points: ["Pages found, straightened and cleaned automatically", "Save as PDF, searchable PDF, Word, text, JPG, PNG or TIFF — free", "Read the text in photos, screenshots and PDFs (OCR), in many languages", "Documents filed by what they say: invoices, receipts, letters"] },
       { icon: "book", title: "PDF Lab", desc: "Do almost anything with a PDF.", points: ["Edit the text of a PDF — even scanned pages — in its own font", "Sign, fill in forms, merge, split, reorder pages", "Add or remove passwords", "Turn web pages and documents into PDF"] },
-      { icon: "star", title: "Image, Video and Audio Labs", desc: "Pro tools for photos, video and sound.", points: ["Photos: crop, resize, compress, 19 looks, remove backgrounds and watermarks", "Video: trim, merge, compress, subtitles, upscale to 4K", "Audio: trim, merge, convert, song details, see the wave", "A media player with playlists, gestures and subtitle sync"] },
+      { icon: "star", title: "Image, Video and Audio Labs", desc: "Pro tools for photos, video and sound.", points: ["Photos: crop, resize, compress, 19 looks, remove backgrounds and watermarks", "Video: trim, merge, compress, subtitles, upscale to 4K", "Audio: trim, merge, convert, song details, see the wave", "A media player with playlists, gestures, and subtitles that turn on by themselves and sync to the speech"] },
       { icon: "eye", title: "Steganography", desc: "Hide messages or files in another file, or reveal secret files or messages.", points: ["Hide a message or a whole file in a photo, PDF, video, song or document", "It still looks and opens the same in every other app", "Lock it with a password", "Reveal what someone hid for you — only Dr. File can read it"] },
       { icon: "send", title: "Device Bridge", desc: "Send files between devices over Wi-Fi — no internet, no cable.", points: ["To another phone with Dr. File, or any computer, iPhone or iPad with a browser", "Pair by scanning a QR code", "Every file checked on arrival", "Send your installed apps as .apk files"] },
       { icon: "sparkles", title: "Dr. File AI", desc: "Ask about your files in your own words — on the phone.", points: ["“Find the PDF about my rent”, “why won't this video play?”", "Explains, finds, converts and creates documents", "Premium: edits words, dates and details in your own files", "Runs on your phone; nothing is sent to a server"] },
       { icon: "lock", title: "Privacy and security", desc: "Keep private files private.", points: ["Vault: files encrypted behind your PIN or fingerprint", "Lock any file with a password (AES-256)", "App lock: PIN or fingerprint before Dr. File opens", "Remove location and camera details from photos before sharing"] },
-      { icon: "wallet", title: "Free, with optional Premium", desc: "Free with a few light ads and daily allowances on the pro tools.", points: ["Premium: no ads, no daily limits, 4K upscaling, folder sync, AI file editing", "About GH₵20 a month, priced in your own currency by Google Play", "Daily check-ins, tasks and short ads earn points", "Points unlock a single feature for a day, or whole days of Premium"] },
+      { icon: "wallet", title: "Free, with optional Premium", desc: "Free with a few light ads and daily allowances on the pro tools.", points: ["Premium: no ads, no daily limits, 4K upscaling, folder sync, AI file editing", "Monthly, every 3 months or yearly, from about US$2.99 a month in your own currency, with a 7-day free trial for new subscribers", "Works offline — just go online once a week", "Daily check-ins, tasks and short ads earn points", "Points unlock a single feature for a day, or whole days of Premium"] },
     ],
     uses: [
       { title: "File manager for Android", desc: "Browse, copy, move, zip and share every file on the phone, SD card and USB drive — it can be your default file manager." },
@@ -273,7 +273,10 @@ export const APPS = [
       { q: "What is steganography in Dr. File?", a: "Hiding a secret message or a whole file inside another file — a photo, PDF, video, song or document — which still opens normally. The person you send it to reveals it in their own Dr. File, with a password if you set one. Free users can hide or reveal 2 a day; Premium has no limit." },
       { q: "How do I get Premium for free?", a: "Check in daily, finish the day's tasks (like scanning a document or sending a file with Device Bridge) and watch a few short ads for points. Points unlock one feature for a day, or whole days of Premium." },
       { q: "Which languages does Dr. File support?", a: "English, Chinese, Hindi, Spanish, French, Arabic, Bengali, Portuguese and Russian." },
-      { q: "When is Dr. File on Google Play?", a: "It's in testing on Google Play now and will be published soon. This page will have the download button when it's out." },
+      { q: "How much is Premium?", a: "From about US$2.99 a month. There are monthly, 3-month and yearly plans; the longer ones cost less a month. Google Play shows the price in your own currency, and new subscribers can start with a 7-day free trial. Cancel any time in Google Play." },
+      { q: "Does Premium work without internet?", a: "Yes. Every Premium tool works offline, and Dr. File keeps track of your plan itself. Once a week it needs the internet for a moment to confirm the time and your plan with Google Play — even with the app closed, it checks in the background." },
+      { q: "Can I get a refund?", a: "Premium is billed through Google Play. Payments generally aren't refunded once Premium is on, except where the law requires it or Google Play's refund policies allow it. Charged by mistake? Ask in Google Play or email us with the order number. See the full refund policy." },
+      { q: "When is Dr. File on Google Play?", a: "Its first public version is in Google Play's final review now and will be out very soon. This page gets the download button the moment it's published." },
     ],
     tags: ["File manager", "File recovery", "Photo recovery", "Video repair", "Document scanner", "PDF editor", "OCR", "File converter", "Storage cleaner", "File transfer", "Steganography", "Vault", "Offline AI"],
     /** Pages from the app's own text (content/drfile-docs.mjs), at /apps/drfile/<page>. */

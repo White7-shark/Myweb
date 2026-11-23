@@ -6,7 +6,7 @@
 export const DRFILE_DOCS = {
   "app": "Dr. File",
   "contact": "gnkhars23@gmail.com",
-  "effective": "19 October 2026",
+  "effective": "23 November 2026",
   "about": {
     "tagline": "Your phone's file doctor.",
     "summary": "Dr. File opens, finds, fixes, converts, cleans, protects and sends the files on your phone — documents, PDFs, photos, music, video, archives and more — all on the phone itself. No account, and your files are never uploaded. Free with a few ads, or Premium with none."
@@ -34,12 +34,13 @@ export const DRFILE_DOCS = {
       "title": "When Dr. File uses the internet",
       "body": [
         "Only when you ask for something that needs it:",
-        "• Downloading the AI model or the embedding model (from Hugging Face, huggingface.co) or a text-recognition language (from GitHub, raw.githubusercontent.com). Those servers see an ordinary download request (your IP address and the file asked for). Nothing about you or your files is sent.",
+        "• Downloading the AI model, the embedding model or Studio Voice (from Hugging Face, huggingface.co) a text-recognition language (from GitHub, raw.githubusercontent.com) or the Sound Separator (from GitHub, media.githubusercontent.com). Those servers see an ordinary download request (your IP address and the file asked for). Nothing about you or your files is sent.",
         "• Turning a web page into a PDF: Dr. File loads the page you entered, as a browser would.",
         "• “Search online” for an unknown file type opens your web browser with that search.",
         "• Quick updates (Settings → App updates, or the optional check when Dr. File opens): Dr. File asks Expo's update service (expo.dev, operated by 650 Industries, Inc.) whether a newer version of its screens exists. The request includes technical details needed to pick the right update — the app's runtime version, update channel, platform and the update currently installed — and, like any web request, your IP address. Expo's privacy policy applies to that service: https://expo.dev/privacy.",
         "• Ads (free version): Google AdMob loads ads and, where the law asks, first shows Google's consent form. Google receives your phone's advertising ID, IP address and basic device information to show and measure ads — see “Ads” below.",
-        "• Premium: when you subscribe, restore or open Dr. File, Google Play tells Dr. File whether this Google account has Premium.",
+        "• Premium: when you subscribe, restore or open Dr. File, and from time to time in the background while your phone is online (at least once a week), Google Play tells Dr. File whether this Google account has Premium, and Dr. File checks the time.",
+        "• New versions: when Dr. File opens, it asks Google Play whether a newer version is out; if you choose “Update now”, Google Play downloads and installs it. Rating Dr. File opens Google Play's own rating card; Google Play never tells Dr. File what you chose.",
         "• Links you tap, such as to the Play Store, open in the apps they belong to.",
         "Dr. File never uploads your files, their contents or what was found in them."
       ]
@@ -56,8 +57,9 @@ export const DRFILE_DOCS = {
     {
       "title": "Premium and rewards",
       "body": [
-        "Premium is a monthly subscription bought through Google Play. Google handles the payment, in your currency; Dr. File only learns from Google Play whether your Google account has Premium. We never see your card or payment details.",
-        "Points, tasks, features unlocked with points and free Premium days are kept only on your phone, and are lost if you clear Dr. File's storage or uninstall it. Tasks are counted on the phone; what you did to finish one is not sent anywhere."
+        "Premium is a subscription bought through Google Play, paid monthly, every 3 months or yearly. Google handles the payment, in your currency; Dr. File only learns from Google Play whether your Google account has Premium. We never see your card or payment details.",
+        "Points, tasks, features unlocked with points and free Premium days are kept only on your phone, and are lost if you clear Dr. File's storage or uninstall it. Tasks are counted on the phone; what you did to finish one is not sent anywhere.",
+        "Sharing Dr. File for Premium: when you share Dr. File's post (a picture made on your phone, and words with Dr. File's Google Play link), Dr. File notes which app you picked from its share list (WhatsApp, Gmail…), or which one Android says you picked from its own share menu, so each app is counted once. That count is kept only on your phone. Only the post goes to the app you chose; Dr. File doesn't see who you send it to. When you choose to post on social media, the post's words are also copied to your clipboard, so you can paste them."
       ]
     },
     {
@@ -74,7 +76,8 @@ export const DRFILE_DOCS = {
     {
       "title": "Device Bridge (sending files between devices)",
       "body": [
-        "Device Bridge sends files — and, if you choose, your installed apps as .apk files — directly between your phone and another device on the same Wi-Fi, or over a private Wi-Fi your phone creates. The other device can be another phone running Dr. File, or any device with a web browser (a computer, an iPhone or an iPad) that opens the page your phone serves. It does not use the internet or any server. Only what you choose is shared, only while sharing is on, and only with devices that have the pairing key shown on your screen. Files received are saved in Download › Dr. File Bridge."
+        "Device Bridge sends files — and, if you choose, your installed apps as .apk files — directly between your phone and another device on the same Wi-Fi, or over a private Wi-Fi your phone creates. The other device can be another phone running Dr. File, or any device with a web browser (a computer, an iPhone or an iPad) that opens the page your phone serves. It does not use the internet or any server. Only what you choose is shared, only while sharing is on, and only with devices that have the pairing key shown on your screen. Files received are saved in Download › Dr. File Bridge.",
+        "Rain Drop (part of Device Bridge) sends files from your phone to many nearby devices at once, over a private Wi-Fi your phone creates or the Wi-Fi you're all on. While a drop is on, devices nearby can see your phone's name and how many files there are (and their total size), so they can find it; file names and contents are shown only to devices you let in (or, if you chose \"Anyone nearby\", to devices that join). You see every device that joins, by its name and type, and can remove or block any of them. Devices can send files back to you only if you allow it; those are saved in Download › Dr. File Rain Drop. When you catch someone else's drop, your phone's name and type are shown to the sender. Nothing goes over the internet or through any server, and the drop stops when you end it."
       ]
     },
     {
@@ -83,9 +86,10 @@ export const DRFILE_DOCS = {
         "• All files access — to show, search, organize, clean, protect and send your files.",
         "• Camera — to scan documents and read Device Bridge QR codes. Pictures are only saved when you take them.",
         "• Notifications — tips and updates on things you started. You choose how often.",
-        "• Nearby devices (Android 13 and later) or location (Android 12 and earlier) — only to create the private Wi-Fi for Device Bridge. Dr. File does not use your location.",
-        "• Wi-Fi and network state — to share over Wi-Fi and join the other phone's private Wi-Fi.",
-        "• The list of installed apps — so the Cleaner can tell which installer files and leftover folders belong to apps on your phone, and so Device Bridge can show the apps you may choose to send as .apk files. It is not sent anywhere.",
+        "• Nearby devices (Android 13 and later) or location (Android 12 and earlier) — only to create the private Wi-Fi for Device Bridge and Rain Drop, and to find Rain Drops nearby. Dr. File does not use your location.",
+        "• Wi-Fi and network state — to share over Wi-Fi, join the other phone's private Wi-Fi, and find Rain Drops on the Wi-Fi you're on.",
+        "• Running while the screen is off (a connected-device service, with Wi-Fi kept at full speed) — only while a Rain Drop is on, so a long transfer isn't cut off. A notification shows the whole time.",
+        "• The list of installed apps — so the Cleaner can tell which installer files and leftover folders belong to apps on your phone, and so Device Bridge can show the apps you may choose to send as .apk files, and so Dr. File's share list can show the apps you can share to. It is not sent anywhere.",
         "• Fingerprint or face — for the app lock and remembered passwords, if you turn them on. Dr. File never sees your fingerprint; Android only tells it whether it matched.",
         "• Advertising ID (free version) — used by Google AdMob for ads, as described above.",
         "• Google Play billing — to buy and check the Premium subscription.",
@@ -153,7 +157,9 @@ export const DRFILE_DOCS = {
       "title": "Free version and Premium",
       "body": [
         "Dr. File is free to use with ads and with daily limits on some tools (for example recovery, repair, reading text in pictures, converting files, Steganography and watermark removal). Premium removes the ads and those limits and adds some tools. What each plan includes is shown in the app (Settings → Dr. File Premium) and may change over time.",
-        "Premium is a subscription sold through Google Play, at the price shown in the app before you buy, in your currency. It renews automatically each period until you cancel. Cancel any time in Google Play → Payments & subscriptions; Premium stays until the end of the period you've paid for. Payments, renewals, refunds and any free trials are handled by Google Play under its terms and refund policies.",
+        "On the free version, a free use of a tool with limited free uses comes after a short ad, which needs the internet. Without internet, a few uses a day still open without one; after that the tool asks you to connect for an ad, or to go Premium.",
+        "Free trial: the plans may start with a free trial (7 days), offered and run by Google Play to people who haven't had one. It's shown before you subscribe. When the free days end, Google Play charges the plan you chose and it renews from then on, unless you cancel in Google Play → Payments & subscriptions before the trial ends — then nothing is charged and Dr. File goes back to the free plan. Dr. File reminds you before the trial ends.",
+        "Premium is a subscription sold through Google Play, at the price shown in the app before you buy, in your currency. It renews automatically each period until you cancel. Cancel any time in Google Play → Payments & subscriptions, and Premium stays until the end of the period you've paid for. Premium works without internet, but Dr. File needs to go online at least once a week (a moment is enough, even with the app closed) to confirm the time and your plan with Google Play. After a week offline, Premium waits until it can. Payments, renewals and any free trials are handled by Google Play under its terms. Refunds are explained in the Refund policy (Settings → About → Refund policy).",
         "Points and rewards: points earned in the app (daily check-ins, watching ads) can be swapped for days of Premium. Points can also unlock a single feature for a day (or, for some, for good) and are earned by finishing the day's tasks. They have no cash value, can't be bought, sold or transferred, are kept only on your phone, and are lost if Dr. File's storage is cleared or the app is uninstalled. We may change how points are earned and what they're worth, and may cancel points gained by cheating (for example by changing the phone's clock)."
       ]
     },
@@ -166,13 +172,14 @@ export const DRFILE_DOCS = {
     {
       "title": "Updates",
       "body": [
-        "The app may receive quick updates to its screens and features (over the air) and full updates through the Play Store. Some features may change or be removed over time."
+        "The app may receive quick updates to its screens and features (over the air) and full updates through the Play Store. Some features may change or be removed over time.",
+        "Each full update must be installed within 7 days of Google Play offering it to your phone. Dr. File counts the days down, and after that it can't be used until it's updated — your files, Vault and settings stay as they are."
       ]
     },
     {
       "title": "Third-party components",
       "body": [
-        "The app is built with open-source software, including FFmpeg (LGPL), Tesseract OCR (Apache 2.0), llama.cpp (MIT), zip4j and Apache Commons Compress (Apache 2.0), ZXing (Apache 2.0), React Native and Expo (MIT), and uses Google ML Kit on the device. Downloaded AI models come with their own licences from their publishers. Their licences apply to those components."
+        "The app is built with open-source software, including FFmpeg (LGPL), Tesseract OCR (Apache 2.0), llama.cpp (MIT), ONNX Runtime (MIT), zip4j and Apache Commons Compress (Apache 2.0), ZXing (Apache 2.0), React Native and Expo (MIT), and uses Google ML Kit on the device. It includes these models: DPDFNet by Ceva (Apache 2.0) for clearing voices, EfficientAT by Florian Schmid (MIT) for naming sounds, and Real-ESRGAN by Xintao Wang (BSD 3-Clause) for enlarging pictures. Studio Voice, if you download it, is MossFormerGAN from Alibaba's ClearerVoice-Studio (Apache 2.0). The Sound Separator, if you download it, is MRX from Mitsubishi Electric Research Laboratories' Cocktail Fork project (MIT). Downloaded AI models come with their own licences from their publishers. Their licences apply to those components."
       ]
     },
     {
@@ -194,6 +201,82 @@ export const DRFILE_DOCS = {
       ]
     }
   ],
+  "refunds": [
+    {
+      "title": "The short version",
+      "body": [
+        "All Premium subscriptions are billed through Google Play. Purchases are generally non-refundable once access to Premium features has been granted, except where a refund is required by the law that applies to you or is granted under Google Play's refund policies.",
+        "Cancelling stops future renewals. It doesn't by itself give you a refund for the period you're in — you keep Premium until that period ends.",
+        "Charged by mistake, or something went wrong with your payment? Contact us (gnkhars23@gmail.com) and we'll help."
+      ]
+    },
+    {
+      "title": "How you pay",
+      "body": [
+        "Premium is sold only through Google Play, monthly, every 3 months or yearly, at the price shown in the app before you confirm, in your own currency. Taxes such as VAT are added where your country requires them. Google Play takes the payment with what you use there (card, mobile money, carrier billing, Google Play balance or gift cards, depending on the country).",
+        "Dr. File never sees or keeps your card or payment details, so we can't charge you or take a payment back ourselves outside Google Play. Every charge and every refund goes through Google Play."
+      ]
+    },
+    {
+      "title": "Free trial",
+      "body": [
+        "If your plan starts with a free trial (7 days, offered by Google Play to people who haven't had one), nothing is charged during the trial. Cancel in Google Play → Payments & subscriptions before it ends and you pay nothing at all — Dr. File reminds you before then.",
+        "If you don't cancel in time, the first payment is taken when the trial ends and the usual rules below apply from then on."
+      ]
+    },
+    {
+      "title": "Cancelling",
+      "body": [
+        "Cancel any time in Google Play → your profile → Payments & subscriptions → Subscriptions → Dr. File → Cancel, or from Settings → Dr. File Premium → Manage subscription. To avoid the next charge, cancel at least a day before the renewal date.",
+        "After cancelling, Premium keeps working until the end of the period you've already paid for, then Dr. File goes back to the free plan by itself. Cancelling doesn't give a refund for that period, which you've had the use of.",
+        "Uninstalling Dr. File, clearing its storage or changing phones doesn't cancel the subscription — it belongs to your Google account, and keeps renewing until you cancel it in Google Play."
+      ]
+    },
+    {
+      "title": "When a refund can be given",
+      "body": [
+        "Once Premium has been turned on, payments aren't normally refunded. A refund may be given:",
+        "• where the consumer law of your country requires it (nothing in this policy takes away rights you have under that law),",
+        "• under Google Play's own refund policies, when you ask Google Play for one (Google decides those requests),",
+        "• when you were charged by mistake, for example twice for the same period, or after cancelling in time,",
+        "• when Premium didn't work on your phone and we couldn't fix it after you told us.",
+        "Each request is looked at on its own. A partial refund may be given for a period that was only partly used, where the law or Google Play's policies call for it. Refunds aren't given just because Premium went unused, a plan was changed or cancelled part-way through a period, or a feature was removed or changed in an update."
+      ]
+    },
+    {
+      "title": "How to ask for a refund",
+      "body": [
+        "• Through Google Play: go to play.google.com, open your profile → Payments & subscriptions → Budget & history (or Order history), find the Dr. File payment and choose to report a problem or request a refund. For payments made recently, Google Play can often decide by itself.",
+        "• Through us: email gnkhars23@gmail.com with the order number from Google Play's receipt email (it starts with “GPA.”), the date of the payment and what went wrong. We reply within a few working days, and where a refund is due we give it through Google Play.",
+        "Google Play returns the money to the way you paid. How long it takes to show depends on your payment method — usually a few days, sometimes longer."
+      ]
+    },
+    {
+      "title": "After a refund",
+      "body": [
+        "When a payment is refunded, the Premium it paid for ends. Dr. File learns this from Google Play the next time your phone is online and moves to the free plan. Your files, Vault and settings stay as they are.",
+        "A refund for one payment may also cancel the subscription in Google Play. If you'd like to keep Premium, you can subscribe again at any time."
+      ]
+    },
+    {
+      "title": "Points and free Premium days",
+      "body": [
+        "Points, tasks, features unlocked with points and free Premium days earned in the app are free rewards with no cash value. They can't be refunded, exchanged for money or moved to another account, and they aren't given back when a subscription is refunded."
+      ]
+    },
+    {
+      "title": "Price changes",
+      "body": [
+        "If the price of a plan changes, Google Play tells you before it applies to your subscription and, where required, asks you to agree. If you don't want the new price, cancel before it takes effect — you won't be charged it, and no refund is due for the price you'd already paid."
+      ]
+    },
+    {
+      "title": "Changes and contact",
+      "body": [
+        "We may update this policy. The current version is always in the app (Settings → About → Refund policy). For billing help or a refund request, contact our support team: gnkhars23@gmail.com"
+      ]
+    }
+  ],
   "faq": [
     {
       "id": "start",
@@ -206,7 +289,7 @@ export const DRFILE_DOCS = {
         },
         {
           "q": "Why does it ask for “All files access”?",
-          "a": "A file manager has to see every folder to show, sort, clean, search and send your files, and Android grants that through this one permission. Dr. File only reads files when you use a feature. You can turn it off in Android settings; Dr. File then works only with files you open in it."
+          "a": "A file manager has to see every folder to show, sort, clean, search and send your files, and Android grants that through this one permission. Dr. File only reads files when you use a feature, and never uploads them. It's required: Dr. File is your file manager, and every tool chooses its files right here in Dr. File — never in the phone's Files app — so without it Dr. File can't work and will ask again."
         },
         {
           "q": "Do I need the internet?",
@@ -255,6 +338,10 @@ export const DRFILE_DOCS = {
       "blurb": "Free up storage safely, and get space back after a mistake.",
       "items": [
         {
+          "q": "A video plays in VLC but not on my phone or in Dr. File — why?",
+          "a": "Some videos — often films shared on Telegram — use a kind of picture or sound the phone has no decoder for (a 10-bit picture, older Windows or DivX video, cinema surround sound). The video isn't damaged. Get the free Dr. File Video Pack (Settings → Extra downloads, or the button on the video's “won't play” screen): a one-time download of about 4 MB from Google Play. Then Dr. File can make a copy that plays on your phone."
+        },
+        {
           "q": "How do I free up space without losing photos?",
           "a": "Home → Clean up finds app caches, leftovers, duplicates and old downloads — never your photos unless you tick them. The safe kinds are already ticked; you choose, then clean."
         },
@@ -286,6 +373,14 @@ export const DRFILE_DOCS = {
           "a": "Yes — choose “With a computer or iPhone”. The other device just opens the web address your phone shows, in any browser (Chrome, Edge, Safari). No app is needed there, so iPhones, iPads, PCs and Macs all work, both ways."
         },
         {
+          "q": "How do I send to many devices at once?",
+          "a": "Use Rain Drop: Tools → Device Bridge → “Start a Rain Drop”. Pick files, choose “Ask me first” or “Anyone nearby”, and start. Phones with Dr. File open “Catch a Rain Drop” and tap your drop; iPhones, iPads and computers scan your code with the camera (first to join the drop's Wi-Fi, then to open it) and get the files in their browser. You see everyone in the drop and can let people in, remove or block anyone, and add files any time. They can send files back to you too. The free plan sends to up to 3 devices at a time — anyone else waits and gets in as soon as a place frees; Premium sends to any number. Catching a drop is always free."
+        },
+        {
+          "q": "How fast is Rain Drop?",
+          "a": "As fast as the two devices' Wi-Fi allows — on recent phones close together, often 40–100 MB a second on the drop's own Wi-Fi (about a gigabyte in 10–25 seconds). Several receivers share that speed. Files a receiver already has are skipped in seconds, and a transfer that stops carries on from the last checked piece, so nothing is sent twice. No phone's Wi-Fi can move hundreds of gigabytes in a minute."
+        },
+        {
           "q": "Can I send apps, like Xender?",
           "a": "Yes. In the send screen tap “Send an app”, pick the apps, and they're sent as .apk files. The other Android phone opens the file to install them. (Only Android can install Android apps; a few apps that come in several parts may send only their main part.)"
         },
@@ -309,16 +404,28 @@ export const DRFILE_DOCS = {
       "blurb": "What's free, what Premium adds, paying in your currency, and free Premium days with points.",
       "items": [
         {
+          "q": "How can I tell if a file was changed or faked?",
+          "a": "Each lab has Forensics (Premium): a tamper check that takes the file's fingerprints (SHA-256, SHA-1, MD5) — compare with a checksum you were given, or seal a file and check later that it hasn't changed — plus checks for its kind: a PDF's edit history, dates and signatures; a picture's edited areas, save history and stored preview; a recording's real quality and cuts; a video's timeline and whether sound and picture belong together. They find the usual signs of changes; some signs have innocent reasons, so treat results as evidence to weigh."
+        },
+        {
           "q": "What's free and what's Premium?",
-          "a": "Free, with no limits: the file manager, search, the Cleaner, Device Bridge, scanning documents (and saving scans as PDF, Word, pictures or text), the Lucid theme with your wallpaper, playing media and Dr. File AI's chat, search and new documents. Free with a daily allowance: recovering deleted files (3 a day), repairs (1), converting files (3 files — scans don't count), Steganography — hiding secret messages or files in another file, and revealing them (2 a day), reading and editing the text in photos, screenshots and PDFs (1 a day, after a short ad), watermark removal (2), background removal (3) and editing text in PDFs (1 document). Premium removes ads and every limit, and adds 4K upscaling, compare & sync folders, your own photo or video clip behind Lucid and Dr. File AI changing your existing files. Settings → Dr. File Premium shows the full list."
+          "a": "Free, with no limits: the file manager, search, the Cleaner, Device Bridge, scanning documents (and saving scans as PDF, Word, pictures or text), the Lucid theme with your wallpaper, playing media and Dr. File AI's chat, search and new documents. Free with a daily allowance: recovering deleted files (3 a day), repairs (1), converting files (3 files — scans don't count), Steganography — hiding secret messages or files in another file, and revealing them (2 a day), reading and editing the text in photos, screenshots and PDFs (1 a day, after a short ad), watermark removal (2), background removal (3) and editing text in PDFs (1 document). Transform (making scans, pictures and sound clearer) is free once a day. Premium removes ads and every limit, and adds the Forensics checks in every lab (tamper check, edit history, edited areas, cuts and joins…), 4K upscaling, compare & sync folders, your own photo or video clip behind Lucid and Dr. File AI changing your existing files. Points from tasks and check-ins unlock a Premium feature for a day. Settings → Dr. File Premium shows the full list."
         },
         {
           "q": "How much is Premium, and can I pay from my country?",
-          "a": "About GH₵20 a month in Ghana. Google Play sets the price in your own currency for your country and takes the payment with whatever you use in Google Play — card, mobile money, carrier billing, Google Play balance or gift cards, depending on the country. The price is shown before you confirm."
+          "a": "About US$2.99 a month. The 3-month and yearly plans cost less a month — the app shows how much each saves in your country. Google Play sets the price in your own currency for your country and takes the payment with whatever you use in Google Play — card, mobile money, carrier billing, Google Play balance or gift cards, depending on the country. The price is shown before you confirm."
         },
         {
           "q": "How do I cancel?",
-          "a": "In Google Play → your profile → Payments & subscriptions → Subscriptions → Dr. File → Cancel (or Settings → Dr. File Premium → Manage subscription). Premium stays until the end of the month you paid for. Uninstalling the app doesn't cancel it."
+          "a": "In Google Play → your profile → Payments & subscriptions → Subscriptions → Dr. File → Cancel (or Settings → Dr. File Premium → Manage subscription). Premium stays until the end of the period you paid for. Uninstalling the app doesn't cancel it."
+        },
+        {
+          "q": "Does Premium work without internet?",
+          "a": "Yes — every Premium tool works offline, and Dr. File keeps track of your plan's dates itself. Once a week it needs the internet for a moment, to confirm the time and your plan with Google Play. Being online is enough, even with Dr. File closed: it checks in the background. After a week with no internet at all, Premium waits behind a “Connect to carry on” screen, which goes by itself as soon as you're online. You get a reminder the day before."
+        },
+        {
+          "q": "Can I get a refund?",
+          "a": "Payments are made through Google Play and generally aren't refunded once Premium is on, except where the law requires it or Google Play's refund policies allow it. Cancelling stops the next renewals but doesn't refund the period you're in. Charged by mistake (twice, or after cancelling in time)? Ask in Google Play (Payments & subscriptions → Budget & history) or contact us with the order number that starts with “GPA.”. The full rules: Settings → About → Refund policy."
         },
         {
           "q": "I paid but Premium isn't on",
@@ -326,7 +433,7 @@ export const DRFILE_DOCS = {
         },
         {
           "q": "How do I get Premium for free?",
-          "a": "Settings → Rewards and points. Check in once a day for 10 points (more on days 3, 5 and 7 in a row) and watch up to 6 short ads a day for 10 points each. 150 points give a day of Premium, 400 give 3 days and 800 give a week — no ads and no limits while it lasts."
+          "a": "Settings → Rewards and points. Check in once a day for 10 points (more on days 3, 5 and 7 in a row) and watch up to 6 short ads a day for 10 points each. 300 points give a day of Premium, 800 give 3 days and 1,600 give a week — no ads and no limits while it lasts."
         },
         {
           "q": "I've used today's free uses — what can I do?",
@@ -334,7 +441,7 @@ export const DRFILE_DOCS = {
         },
         {
           "q": "What are tasks, and how do I unlock a feature with points?",
-          "a": "Tools → Tasks & points shows your points and three tasks for today — things like scanning a document, freeing up space or sending a file with Device Bridge. Each one done adds points; finish all three and you can ask for two more. Points can unlock one feature without limits for a day (from 30 points — for example reading text, converting files or Steganography), unlock your own photo or clip behind Lucid for good (300 points), or swap for whole days of Premium."
+          "a": "Tools → Tasks & points shows your points and three tasks for today — things like scanning a document, freeing up space or sending a file with Device Bridge. Each one done adds points; finish all three and you can ask for two more. Points can unlock one feature without limits for a day (from 60 points — for example reading text, converting files or Steganography), unlock your own photo or clip behind Lucid for good (600 points), or swap for whole days of Premium."
         },
         {
           "q": "Why are there ads, and can I choose what they use?",
@@ -353,11 +460,11 @@ export const DRFILE_DOCS = {
       "items": [
         {
           "q": "How does hiding a message work?",
-          "a": "Tools → Steganography → Hide a message. Choose a photo (it's hidden invisibly in the picture) or any other file like a PDF, video, song or document (the message rides along inside; the file still opens the same). Type the message or choose a file to hide, add a password to lock it, then share the result."
+          "a": "Tools → Steganography → Hide. Choose the file to hide it in — a photo, PDF, video, song or document. Type a message, add any number of files, or both, add a password to lock it, and tap Hide. It goes into the file itself (no copy is made), so wherever that file is opened or sent, it carries what's hidden; it still opens the same in every app. A PNG photo hides it invisibly in its pixels; other files carry it after their own end or in their comment box."
         },
         {
           "q": "Someone sent me a file — how do I get the hidden message?",
-          "a": "Tools → Steganography → Reveal a message (also in Tools as “Reveal a hidden message”). Pick the file exactly as it arrived — saved from the chat as a document, not re-saved as a photo — and tap Reveal. If it was locked, type the password. The message shows on screen (tap Copy), or a hidden file is saved to Download › Dr. File Hidden. You can also open the file in Dr. File and tap “Reveal a hidden message” on its page."
+          "a": "Tools → Steganography → Reveal a message (also in Tools as “Reveal a hidden message”). Pick the file exactly as it arrived — saved from the chat as a document, not re-saved as a photo — and tap Reveal. If it was locked, type the password. Everything hidden shows: the message on screen (tap Copy), and each hidden file saved to Download › Dr. File Hidden. Revealing doesn't change the file — it still carries everything until you choose “Take it out of the file”. You can also open the file in Dr. File and tap “Reveal what's hidden” on its page."
         },
         {
           "q": "Does the other person need this app to read it?",
@@ -365,11 +472,11 @@ export const DRFILE_DOCS = {
         },
         {
           "q": "Which files can I hide a message in?",
-          "a": "Photos (hidden invisibly in the picture, saved as PNG); PDFs, videos and music (carried after the file's own end — no size limit); Word, Excel and PowerPoint files, ZIPs, APKs and e-books (kept in the file's comment box — up to 64 KB). Steganography's first page shows the list."
+          "a": "PNG photos (hidden invisibly in the picture's pixels); JPG, HEIC and other photos, PDFs, videos and music (carried after the file's own end — no size limit); Word, Excel and PowerPoint files, ZIPs, APKs and e-books (kept in the file's comment box — up to 64 KB). Steganography's first page shows the list."
         },
         {
           "q": "How do I know if a file has something hidden in it?",
-          "a": "Open it in Steganography → Reveal a message. As soon as you choose it, Dr. File checks and says “Something is hidden in this file” when it finds one. A locked message may only show after you type the password."
+          "a": "Open it in Steganography → Reveal. As soon as you choose it, Dr. File checks and says “Something is hidden in this file” when it finds one. To look through all your files at once: Steganography → Find files with hidden things — each one found can be revealed, or have what's hidden taken out. Something hidden in a picture's pixels with a password can't be found without the password, by design."
         },
         {
           "q": "Why did my hidden message disappear?",
@@ -392,7 +499,11 @@ export const DRFILE_DOCS = {
       "items": [
         {
           "q": "How do I lock private files away?",
-          "a": "Select files in Files → More → Move to Vault (Tools → Vault). They're encrypted with a key held by your phone's secure hardware, and the originals are removed. Opening the Vault needs your PIN or fingerprint."
+          "a": "Select files in Files → More → Move to Vault (Tools → Vault). Each is locked where it is first — no unlocked copy is ever made — then moved into the Vault as a Dr. File locked file (.drf), with a key held by your phone's secure hardware. Opening the Vault needs your PIN or fingerprint."
+        },
+        {
+          "q": "What is a .drf file?",
+          "a": "Dr. File's own locked file type. Tools → Lock files encrypts the file itself, where it is (AES-256): nothing is copied, and the unlocked contents are overwritten. No other app can open a .drf file — even if someone renames it to .jpg or .pdf, it's still locked, and Dr. File still knows it by what's inside. Dr. File opens it with the password, or — if you locked it with this phone's key — after your fingerprint, face or screen lock, so no one else holding your phone can. If the phone switches off while a file is being locked, Dr. File finishes it the next time it opens; nothing is lost."
         },
         {
           "q": "What happens to the Vault if I uninstall Dr. File?",
@@ -434,6 +545,10 @@ export const DRFILE_DOCS = {
           "a": "Open the web page or document and use Print → save as PDF, or in Create choose “Web page to PDF”. Dr. File lays it out properly, with page numbers."
         },
         {
+          "q": "How do I make a blurry or faded PDF clear?",
+          "a": "PDF Lab → Transform file. Every scanned or photographed page is drawn sharp (up to 300 dpi), its blur taken out, the letters darkened and the paper whitened. Pages of real text are already sharp, so they're kept as they are. Pictures (Image Lab → Transform) and recordings (Audio Lab → Transform) can be made clearer the same way; videos are made bigger in Video Lab → Change resolution, from 144p to 4K."
+        },
+        {
           "q": "A PDF won't open — can it be fixed?",
           "a": "PDF Lab → Repair rebuilds a damaged PDF's structure so it opens again where possible."
         }
@@ -471,6 +586,10 @@ export const DRFILE_DOCS = {
       "title": "Video & sound",
       "blurb": "Play, convert, trim, upscale, fix subtitles and repair media.",
       "items": [
+        {
+          "q": "How do I carry on a video where I stopped?",
+          "a": "Use a watch folder: Video Lab → Watch folders → make one, then add the videos you're watching. Each one picks up where you stopped, and the folder shows how far you got in each. That's kept in a hidden file inside the folder that only Dr. File reads, so it goes with the folder and nothing builds up in the app. Videos outside a watch folder start from the beginning."
+        },
         {
           "q": "A video won't play — what can I do?",
           "a": "Open it in Dr. File's player, which plays most formats. If the file is damaged, Video Lab → Repair can often bring it back. To make it play elsewhere, Video Lab → Convert to a common format like MP4."
@@ -592,7 +711,7 @@ export const DRFILE_DOCS = {
         },
         {
           "q": "Dr. File can't see my files.",
-          "a": "Check that All files access is on: Settings → About, FAQ and privacy explains it, or Android → Apps → Dr. File → Permissions. Without it, Dr. File only works with files you open in it."
+          "a": "Check that All files access is on: Android → Apps → Dr. File → Permissions → Files and media (or “All files access”). Dr. File asks for it whenever it's off, because it can't work without it."
         },
         {
           "q": "The app feels slow or odd after an update.",
@@ -638,6 +757,12 @@ export const DRFILE_DOCS = {
         "about": "Send files to a computer or phone over Wi-Fi",
         "free": "Included",
         "premium": "Included"
+      },
+      {
+        "title": "Rain Drop",
+        "about": "Send to many devices at once",
+        "free": "Up to 3 devices at a time",
+        "premium": "Any number"
       },
       {
         "title": "Lucid theme",
@@ -689,6 +814,12 @@ export const DRFILE_DOCS = {
         "title": "Upscale videos (up to 4K)",
         "free": "Downscaling only",
         "premium": "Upscale to 1080p, 2K and 4K"
+      },
+      {
+        "title": "Forensics",
+        "about": "Tamper checks and signs of editing in PDFs, pictures, sound and video",
+        "free": "—",
+        "premium": "All 13 checks"
       }
     ],
     "more": "And more, including: no limits on removing watermarks and backgrounds, editing photos in batches of any size, as many Smart rules as you like, and comparing & syncing folders. Install the app and see for yourself.",
@@ -701,7 +832,7 @@ export const DRFILE_DOCS = {
         "premium": "Unlimited",
         "pitch": "Get back every photo, video and document you lost — as many as you need, from the phone, a card or a USB drive.",
         "pass": {
-          "points": 60
+          "points": 120
         }
       },
       {
@@ -712,7 +843,18 @@ export const DRFILE_DOCS = {
         "premium": "Unlimited",
         "pitch": "Fix every video, PDF and picture that won't open — not just one a day.",
         "pass": {
-          "points": 40
+          "points": 80
+        }
+      },
+      {
+        "key": "transform",
+        "title": "Transform files (make them clearer)",
+        "about": null,
+        "free": "1 a day",
+        "premium": "Unlimited",
+        "pitch": "Make blurry scans, photos and recordings clear — sharper pages and pictures, cleaner sound — as often as you like.",
+        "pass": {
+          "points": 100
         }
       },
       {
@@ -723,7 +865,7 @@ export const DRFILE_DOCS = {
         "premium": "Unlimited, no ads",
         "pitch": "Copy and edit the words in photos, screenshots and PDFs — as often as you like, with no ads.",
         "pass": {
-          "points": 30
+          "points": 60
         }
       },
       {
@@ -734,7 +876,7 @@ export const DRFILE_DOCS = {
         "premium": "Unlimited",
         "pitch": "Change the words in any PDF, in its own font, as often as you need.",
         "pass": {
-          "points": 40
+          "points": 80
         }
       },
       {
@@ -745,7 +887,7 @@ export const DRFILE_DOCS = {
         "premium": "Unlimited",
         "pitch": "Turn as many files as you like into other types — Word to PDF, video to MP3, HEIC to JPG…",
         "pass": {
-          "points": 30
+          "points": 60
         }
       },
       {
@@ -756,7 +898,7 @@ export const DRFILE_DOCS = {
         "premium": "Unlimited",
         "pitch": "Hide and reveal secret messages and files in photos, PDFs, videos and documents whenever you want.",
         "pass": {
-          "points": 30
+          "points": 60
         }
       },
       {
@@ -767,7 +909,7 @@ export const DRFILE_DOCS = {
         "premium": "Unlimited",
         "pitch": "Clean marks and stamps off as many photos as you like.",
         "pass": {
-          "points": 40
+          "points": 80
         }
       },
       {
@@ -778,7 +920,7 @@ export const DRFILE_DOCS = {
         "premium": "Unlimited",
         "pitch": "Cut out people and products from any number of photos.",
         "pass": {
-          "points": 40
+          "points": 80
         }
       },
       {
@@ -789,7 +931,18 @@ export const DRFILE_DOCS = {
         "premium": "Any number",
         "pitch": "Resize, convert or compress hundreds of photos in one go.",
         "pass": {
-          "points": 40
+          "points": 80
+        }
+      },
+      {
+        "key": "rainDrop",
+        "title": "Rain Drop",
+        "about": "Send files to many devices at once",
+        "free": "Up to 3 devices at a time",
+        "premium": "Any number of devices",
+        "pitch": "Send to the whole room at once — every phone, iPhone and computer that joins, not just three.",
+        "pass": {
+          "points": 60
         }
       },
       {
@@ -818,7 +971,18 @@ export const DRFILE_DOCS = {
         "premium": "Upscale to 1080p, 2K and 4K",
         "pitch": "Make old and small videos sharp and big — up to 4K.",
         "pass": {
-          "points": 80
+          "points": 160
+        }
+      },
+      {
+        "key": "forensics",
+        "title": "Forensics",
+        "about": "Tamper checks and signs of editing in PDFs, pictures, sound and video",
+        "free": "—",
+        "premium": "All 13 checks",
+        "pitch": "Find out whether a document, photo, recording or video was changed — fingerprints, edit history, edited areas, cuts and joins.",
+        "pass": {
+          "points": 150
         }
       },
       {
@@ -829,7 +993,7 @@ export const DRFILE_DOCS = {
         "premium": "Included",
         "pitch": "See what's different between two folders and make them match in one tap.",
         "pass": {
-          "points": 60
+          "points": 120
         }
       },
       {
@@ -840,8 +1004,30 @@ export const DRFILE_DOCS = {
         "premium": "Any photo or video clip",
         "pitch": "The Lucid theme is free with your wallpaper — put any photo or looping video clip behind the glass instead.",
         "pass": {
-          "points": 300,
+          "points": 600,
           "forever": true
+        }
+      },
+      {
+        "key": "watermarkPro",
+        "title": "Pro watermarks & signatures",
+        "about": "Sign your photos, any colour, outlines, labels and stamps",
+        "free": "Text or logo, 5 colours, 6 letterings",
+        "premium": "Signatures, every colour and style",
+        "pitch": "Sign photos with your own handwriting, pick any colour, add outlines, labels and rubber stamps, and keep your favourite styles.",
+        "pass": {
+          "points": 80
+        }
+      },
+      {
+        "key": "lockName",
+        "title": "Name your locked files",
+        "about": "Choose the name a locked file is saved under",
+        "free": "A hidden name with its own code, or the file's own name",
+        "premium": "Any name you like, for each file",
+        "pitch": "Save locked files under names of your own, so you can tell them apart without giving away what's inside.",
+        "pass": {
+          "points": 60
         }
       },
       {
@@ -852,74 +1038,99 @@ export const DRFILE_DOCS = {
         "premium": "Also edits your existing files",
         "pitch": "Ask Dr. File AI to change words, dates and details in your own documents.",
         "pass": {
-          "points": 50
+          "points": 100
         }
       }
     ],
     "passes": [
       {
         "title": "Read & edit text in pictures (OCR)",
-        "points": 30,
+        "points": 60,
         "forever": false
       },
       {
         "title": "Convert files",
-        "points": 30,
+        "points": 60,
         "forever": false
       },
       {
         "title": "Steganography",
-        "points": 30,
+        "points": 60,
+        "forever": false
+      },
+      {
+        "title": "Rain Drop",
+        "points": 60,
+        "forever": false
+      },
+      {
+        "title": "Name your locked files",
+        "points": 60,
         "forever": false
       },
       {
         "title": "Repair damaged files",
-        "points": 40,
-        "forever": false
-      },
-      {
-        "title": "Edit text in PDFs",
-        "points": 40,
-        "forever": false
-      },
-      {
-        "title": "Remove watermarks",
-        "points": 40,
-        "forever": false
-      },
-      {
-        "title": "Remove backgrounds",
-        "points": 40,
-        "forever": false
-      },
-      {
-        "title": "Edit photos in batches",
-        "points": 40,
-        "forever": false
-      },
-      {
-        "title": "Dr. File AI changes your files",
-        "points": 50,
-        "forever": false
-      },
-      {
-        "title": "Recover deleted files",
-        "points": 60,
-        "forever": false
-      },
-      {
-        "title": "Compare & sync folders",
-        "points": 60,
-        "forever": false
-      },
-      {
-        "title": "Upscale videos (up to 4K)",
         "points": 80,
         "forever": false
       },
       {
+        "title": "Edit text in PDFs",
+        "points": 80,
+        "forever": false
+      },
+      {
+        "title": "Remove watermarks",
+        "points": 80,
+        "forever": false
+      },
+      {
+        "title": "Remove backgrounds",
+        "points": 80,
+        "forever": false
+      },
+      {
+        "title": "Edit photos in batches",
+        "points": 80,
+        "forever": false
+      },
+      {
+        "title": "Pro watermarks & signatures",
+        "points": 80,
+        "forever": false
+      },
+      {
+        "title": "Transform files (make them clearer)",
+        "points": 100,
+        "forever": false
+      },
+      {
+        "title": "Dr. File AI changes your files",
+        "points": 100,
+        "forever": false
+      },
+      {
+        "title": "Recover deleted files",
+        "points": 120,
+        "forever": false
+      },
+      {
+        "title": "Compare & sync folders",
+        "points": 120,
+        "forever": false
+      },
+      {
+        "title": "Forensics",
+        "points": 150,
+        "forever": false
+      },
+      {
+        "title": "Upscale videos (up to 4K)",
+        "points": 160,
+        "forever": false
+      },
+      {
         "title": "Your own photo or clip behind Lucid",
-        "points": 300,
+        "points": 600,
         "forever": true
       }
     ],
@@ -934,15 +1145,15 @@ export const DRFILE_DOCS = {
       "adsPerDay": 6,
       "tiers": [
         {
-          "points": 150,
+          "points": 300,
           "days": 1
         },
         {
-          "points": 400,
+          "points": 800,
           "days": 3
         },
         {
-          "points": 800,
+          "points": 1600,
           "days": 7
         }
       ]

@@ -452,7 +452,7 @@ ${app.lucidShots?.length ? `<section class="wrap section" id="lucid">${sectionLa
 
 /*
  * Apps with `docs` (generated from the app's own text, e.g. content/drfile-docs.mjs) get pages
- * at /apps/<slug>/<page>: about, help, premium (plans), privacy and terms — the addresses the
+ * at /apps/<slug>/<page>: about, help, premium (plans), privacy, terms and refunds — the addresses the
  * Play Console and the app itself link to.
  */
 const DOC_PAGES = [
@@ -461,10 +461,14 @@ const DOC_PAGES = [
   { page: "premium", label: "Free & Premium" },
   { page: "privacy", label: "Privacy policy" },
   { page: "terms", label: "Terms of use" },
+  { page: "refunds", label: "Refund policy", needs: "refunds" },
 ];
 
+/** The doc pages this app has (a page with `needs` only when its docs carry that part). */
+const docPagesOf = (app) => DOC_PAGES.filter((d) => !d.needs || app.docs?.[d.needs]);
+
 function docNav(app, current) {
-  return `<nav class="doc-nav" aria-label="${esc(app.shortName)} pages">${[{ page: "", label: "Overview" }, ...DOC_PAGES]
+  return `<nav class="doc-nav" aria-label="${esc(app.shortName)} pages">${[{ page: "", label: "Overview" }, ...docPagesOf(app)]
     .map((d) => `<a class="chip${d.page === current ? " chip-mono" : ""}" href="/apps/${app.slug}${d.page ? `/${d.page}` : ""}"${d.page === current ? ' aria-current="page"' : ""}>${esc(d.label)}</a>`)
     .join("")}</nav>`;
 }
@@ -497,9 +501,13 @@ function docPage(app, page) {
   let content = "";
   let description = "";
   const schema = [];
-  if (page === "privacy" || page === "terms") {
-    content = `<p class="muted">Effective ${esc(d.effective)} · Questions: <a href="mailto:${esc(d.contact)}">${esc(d.contact)}</a></p>${sections(page === "privacy" ? d.privacy : d.terms)}`;
-    description = page === "privacy" ? `How ${app.name} handles your data: your files stay on your phone, what the free version's ads and Google Play see, and your choices.` : `The terms of use for ${app.name}: your files, acceptable use, the free version and Premium, and our responsibilities.`;
+  if (page === "privacy" || page === "terms" || page === "refunds") {
+    content = `<p class="muted">Effective ${esc(d.effective)} · Questions: <a href="mailto:${esc(d.contact)}">${esc(d.contact)}</a></p>${sections({ privacy: d.privacy, terms: d.terms, refunds: d.refunds }[page])}`;
+    description = {
+      privacy: `How ${app.name} handles your data: your files stay on your phone, what the free version's ads and Google Play see, and your choices.`,
+      terms: `The terms of use for ${app.name}: your files, acceptable use, the free version and Premium, and our responsibilities.`,
+      refunds: `${app.name}'s refund policy: Premium billed through Google Play, cancelling, when a refund can be given and how to ask for one.`,
+    }[page];
   } else if (page === "about") {
     content = `<p class="lead">${esc(d.about.tagline)}</p><section class="glass card doc-section"><p>${esc(d.about.summary)}</p>${app.intro.map((p) => `<p>${esc(p)}</p>`).join("")}</section>
       <section class="glass card doc-section"><h2>What it does</h2><ul class="ticks">${app.features.map((f) => `<li><strong>${esc(f.title)}</strong> — ${esc(f.desc)}</li>`).join("")}</ul></section>
@@ -518,7 +526,7 @@ function docPage(app, page) {
       <section class="glass card doc-section"><h2>Free and Premium</h2><div class="table-wrap"><table class="plans"><thead><tr><th></th><th>Free</th><th>Premium</th></tr></thead><tbody>
       ${p.rows.map((f) => `<tr><th>${esc(f.title)}${f.about ? `<span class="row-about">${esc(f.about)}</span>` : ""}</th><td>${esc(f.free)}</td><td>${esc(f.premium)}</td></tr>`).join("")}
       </tbody></table></div><p class="plans-more">${esc(p.more)}</p></section>
-      <section class="glass card doc-section"><h2>Price</h2><p>About GH₵20 a month in Ghana. Google Play sets the price in your own currency for your country and takes the payment — card, mobile money, carrier billing, Play balance or gift cards, depending on the country. Cancel any time in Google Play → Payments &amp; subscriptions.</p></section>
+      <section class="glass card doc-section"><h2>Price</h2><p>Monthly, every 3 months or yearly — from about US$2.99 a month, and the longer plans cost less a month. Google Play sets the price in your own currency for your country and takes the payment: card, mobile money, carrier billing, Play balance or gift cards, depending on the country. New subscribers can start with a 7-day free trial where Google Play offers it. Cancel any time in Google Play → Payments &amp; subscriptions. Premium works offline; it just needs to go online once a week (a moment is enough, even with the app closed). <a href="/apps/${app.slug}/refunds">Refund policy</a>.</p></section>
       <section class="glass card doc-section"><h2>Points</h2><ul class="ticks">
         <li>Daily check-in: ${p.points.checkIn} points, more on days 3, 5 and 7 in a row</li>
         <li>Today's tasks: ${p.tasks.perDay} a day (two more once they're done), up to ${Math.max(...p.tasks.list.map((t) => t.points))} points each — like ${p.tasks.list.slice(0, 3).map((t) => `“${esc(t.title)}”`).join(", ")}</li>
@@ -532,7 +540,7 @@ function docPage(app, page) {
   const body = `
 <nav class="wrap crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/apps">Apps</a> / <a href="/apps/${app.slug}">${esc(app.name)}</a> / <span>${esc(label)}</span></nav>
 <section class="wrap section prose doc">
-  <div class="doc-head"><img src="/apps/${app.slug}/icon-256.webp" width="64" height="64" alt="" class="app-icon"><div>${sectionLabel(app.name)}<h1>${esc({ about: `About ${app.name}`, help: `${app.name} help & FAQ`, premium: `${app.name}: Free & Premium`, privacy: `${app.name} privacy policy`, terms: `${app.name} terms of use` }[page])}</h1></div></div>
+  <div class="doc-head"><img src="/apps/${app.slug}/icon-256.webp" width="64" height="64" alt="" class="app-icon"><div>${sectionLabel(app.name)}<h1>${esc({ about: `About ${app.name}`, help: `${app.name} help & FAQ`, premium: `${app.name}: Free & Premium`, privacy: `${app.name} privacy policy`, terms: `${app.name} terms of use`, refunds: `${app.name} refund policy` }[page])}</h1></div></div>
   ${docNav(app, page)}
   ${content}
 </section>`;
@@ -608,7 +616,7 @@ write("apps/index.html", appsIndexPage());
 write("about/index.html", aboutPage());
 write("404.html", notFoundPage());
 for (const app of APPS) write(`apps/${app.slug}/index.html`, appPage(app));
-for (const app of APPS.filter((a) => a.docs)) for (const d of DOC_PAGES) write(`apps/${app.slug}/${d.page}/index.html`, docPage(app, d.page));
+for (const app of APPS.filter((a) => a.docs)) for (const d of docPagesOf(app)) write(`apps/${app.slug}/${d.page}/index.html`, docPage(app, d.page));
 
 const urls = [
   { path: "/", priority: "1.0", lastmod: TODAY },
@@ -616,7 +624,7 @@ const urls = [
   ...APPS.map((a) => ({ path: `/apps/${a.slug}`, priority: "0.9", lastmod: a.updated })),
   { path: "/about", priority: "0.6", lastmod: TODAY },
   ...APPS.filter((a) => a.privacyUrl?.startsWith("/")).map((a) => ({ path: a.privacyUrl, priority: "0.4", lastmod: a.updated })),
-  ...APPS.filter((a) => a.docs).flatMap((a) => DOC_PAGES.map((d) => ({ path: `/apps/${a.slug}/${d.page}`, priority: d.page === "help" ? "0.6" : "0.4", lastmod: a.updated }))),
+  ...APPS.filter((a) => a.docs).flatMap((a) => docPagesOf(a).map((d) => ({ path: `/apps/${a.slug}/${d.page}`, priority: d.page === "help" ? "0.6" : "0.4", lastmod: a.updated }))),
 ];
 const unique = [...new Map(urls.map((u) => [u.path, u])).values()];
 write(
@@ -649,4 +657,4 @@ write(
 if (!existsSync(join(OUT, "privacy", "index.html"))) {
   console.warn("warning: public/privacy/index.html is missing — /privacy will 404");
 }
-console.log(`Built ${4 + APPS.length + APPS.filter((a) => a.docs).length * DOC_PAGES.length} pages for ${BASE} into dist/`);
+console.log(`Built ${4 + APPS.length + APPS.filter((a) => a.docs).reduce((n, a) => n + docPagesOf(a).length, 0)} pages for ${BASE} into dist/`);
